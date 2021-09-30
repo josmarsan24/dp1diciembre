@@ -59,6 +59,13 @@
 <%-- 	</sec:authorize>                --%>
 
         </c:forEach>
+        <h2>Resultados</h2>
+        <c:forEach var="resultado" items="${torneo.resultados}">
+        <tr>
+         <td><b><c:out value="${resultado.atleta.nombre} ${resultado.atleta.apellidos} ${resultado.posicion}"/></b></td>
+         </tr>
+        </c:forEach>
+        
     </table>
     <spring:url value="{torneoId}/add" var="addParticipanteUrl">
         <spring:param name="torneoId" value="${torneo.id}"/>

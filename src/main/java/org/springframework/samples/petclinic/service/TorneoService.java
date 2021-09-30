@@ -95,6 +95,7 @@ public class TorneoService {
 		return res;
 	}
 	
+	
 	@Transactional
 	public Set<Torneo> buscarTorneosEnLosQueParticipan(Set<Athlete> athletes) {
 		Set<Torneo> torneos = new HashSet<Torneo>();
