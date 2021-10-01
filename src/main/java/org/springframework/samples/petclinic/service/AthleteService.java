@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.samples.petclinic.PetclinicApplication;
 import org.springframework.samples.petclinic.model.Athlete;
 import org.springframework.samples.petclinic.model.Deporte;
 import org.springframework.samples.petclinic.model.Entrenador;
@@ -22,9 +23,13 @@ import org.springframework.samples.petclinic.service.exceptions.NotValidUsername
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class AthleteService {
 
+	
 	private AthleteRepository athleteRepository;
 	private SancionRepository sancionRepo;
 	private UserService userService;
@@ -46,6 +51,7 @@ public class AthleteService {
 
 	@Transactional
 	public Iterable<Athlete> findAll() {
+		log.info("Se van a obtener todos los atletas del sistema");
 		return athleteRepository.findAll();
 	}
 
@@ -80,11 +86,13 @@ public class AthleteService {
 
 	@Transactional(readOnly = true)
 	public Athlete findAthleteById(int id) throws DataAccessException {
+		log.info("Se van a obtener los datos del deportista con ID "+ id);
 		return athleteRepository.findById(id).get();
 	}
 
 	@Transactional
 	public Set<Athlete> findAthleteByEntrenadorId(int entrenadorId) {
+		log.info("Se van a obtener los datos del deportista cuyo entrenador tiene ID "+entrenadorId);
 		return athleteRepository.findByEntrenadorId(entrenadorId);
 	}
 
