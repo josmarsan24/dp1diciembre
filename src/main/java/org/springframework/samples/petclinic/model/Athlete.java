@@ -81,6 +81,10 @@ public class Athlete extends Persona{
 	@JoinColumn(name = "entrenador_id")
 	private Entrenador entrenador;
 	
+	@ManyToOne
+	@JoinColumn(name = "patrocinador_id")
+	private Patrocinador patrocinador;
+	
 	@ManyToMany(mappedBy = "participantes")
 	private Set<Torneo> torneos;
 	
