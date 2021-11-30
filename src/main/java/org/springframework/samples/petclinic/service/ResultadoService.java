@@ -1,8 +1,10 @@
 package org.springframework.samples.petclinic.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Resultado;
 import org.springframework.samples.petclinic.repository.ResultadoRepository;
+import org.springframework.samples.petclinic.service.exceptions.IncrongruentPositionException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,8 +24,11 @@ public class ResultadoService {
 		return resultadoRepo.findAll();
 	}
 
-	@Transactional
-	public void save(Resultado r) {
+	@Transactional(rollbackFor = IncrongruentPositionException.class)
+	public void save(Resultado r) throws DataAccessException, IncrongruentPositionException{
+		if (r.getPosicion() > r.getTorneo().getParticipantes().size() || r.getTorneo().getResultados().stream().anyMatch(x->x.getPosicion()==r.getPosicion())) {
+			throw new IncrongruentPositionException();
+		}
 		resultadoRepo.save(r);
 	}
 

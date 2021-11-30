@@ -3,6 +3,7 @@ package org.springframework.samples.petclinic.web;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Athlete;
 import org.springframework.samples.petclinic.model.Pista;
 import org.springframework.samples.petclinic.model.Resultado;
@@ -10,10 +11,13 @@ import org.springframework.samples.petclinic.model.Torneo;
 import org.springframework.samples.petclinic.service.AthleteService;
 import org.springframework.samples.petclinic.service.ResultadoService;
 import org.springframework.samples.petclinic.service.TorneoService;
+import org.springframework.samples.petclinic.service.exceptions.IncrongruentPositionException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -26,30 +30,48 @@ public class ResultadoController {
 	private AthleteService athleteService;
 	@Autowired
 	private TorneoService torneoService;
-	
-	@GetMapping(path="/torneos/show/{torneoId}/{athleteId}/resultado/new")
+
+	@GetMapping(path = "/torneos/show/{torneoId}/{athleteId}/resultado/new")
 	public String crearResultado(@PathVariable int torneoId, @PathVariable int athleteId, ModelMap modelMap) {
-		String view="resultados/editResultado";
+		String view = "resultados/editResultado";
 		Torneo torneo = torneoService.findTorneoById(torneoId);
 		Athlete athlete = athleteService.findAthleteById(athleteId);
-		modelMap.addAttribute("resultado", new Resultado());
+		Resultado resultado = new Resultado();
+		resultado.setTorneo(torneo);
+		resultado.setAtleta(athlete);
+		modelMap.addAttribute("resultado", resultado);
 		modelMap.addAttribute("torneo", torneo);
 		modelMap.addAttribute("athlete", athlete);
 		return view;
 	}
-	
+
 	@PostMapping(value = "/torneos/show/{torneoId}/{athleteId}/resultado/new")
-	public String processCreationForm(@PathVariable int torneoId, @PathVariable int athleteId,@Valid final Resultado resultado, final BindingResult result, final ModelMap model) {
+	public String processCreationForm(@PathVariable int torneoId, @PathVariable int athleteId,
+			@Valid final Resultado resultado, final BindingResult result, final ModelMap model)
+			throws DataAccessException, IncrongruentPositionException {
 		Athlete atleta = athleteService.findAthleteById(athleteId);
 		Torneo torneo = torneoService.findTorneoById(torneoId);
 		if (result.hasErrors()) {
-			model.put("resultado", resultado);
-			return "resultados/editResultado";
-		} else {
 			resultado.setAtleta(atleta);
 			resultado.setTorneo(torneo);
-			this.resultadoService.save(resultado);
-			return "redirect:/torneos/show/{torneoId}";
+			model.put("resultado", resultado);
+			model.addAttribute("torneo", torneo);
+			model.addAttribute("athlete", atleta);
+			return "resultados/editResultado";
+		} else {
+			try {
+				resultado.setAtleta(atleta);
+				resultado.setTorneo(torneo);
+				this.resultadoService.save(resultado);
+			} catch (IncrongruentPositionException ex) {
+				result.rejectValue("posicion", "invalidPosition",
+						"la posicion esta fuera de rango o ya esta ocupada por otro atleta");
+				model.addAttribute("torneo", torneo);
+				model.addAttribute("athlete", atleta);
+				return "resultados/editResultado";
 			}
+
+			return "redirect:/torneos/show/{torneoId}";
 		}
+	}
 }

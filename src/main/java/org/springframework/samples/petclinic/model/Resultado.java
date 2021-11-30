@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Positive;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -22,7 +23,7 @@ public class Resultado extends BaseEntity {
 	@ManyToOne
 	@JoinColumn(name = "athlete_id")
 	private Athlete atleta;
-
+	@Positive
 	@Column(name = "posicion") 
 	private Integer posicion;
 
