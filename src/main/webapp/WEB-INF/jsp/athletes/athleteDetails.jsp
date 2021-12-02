@@ -123,5 +123,13 @@
                        </dl>
                 </td>
 		</c:forEach>
-    </table>  
+		</table> 
+        <h2>Resultados</h2>
+        <c:forEach var="resultado" items="${athlete.resultados}">
+        <tr>
+         <td><b><c:out value="${resultado.posicion}º ${resultado.torneo.name} "/></b><br></td>
+         </tr>
+        </c:forEach>
+    
+    
 </petclinic:layout>

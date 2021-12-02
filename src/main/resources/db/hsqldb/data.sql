@@ -127,8 +127,8 @@ INSERT INTO entrenadores(id, nombre, apellidos, dni, email, deporte_id, username
 INSERT INTO entrenadores(id, nombre, apellidos, dni, email, deporte_id, username) VALUES (5, 'Noa', 'Herrero ','84531765F','',3,'e2');
 
 INSERT INTO torneos(id,name,fecha_inicio,fecha_fin,pista_id,deporte_id) VALUES (1,'Torneo Huelva de 100 metros','2021-12-16','2021-12-20',1,1);
-INSERT INTO torneos(id,name,fecha_inicio,fecha_fin,pista_id,deporte_id) VALUES (2,'Torneo Sevilla de 200 metros','2020-05-16','2020-05-20',2,2);
-INSERT INTO torneos(id,name,fecha_inicio,fecha_fin,pista_id,deporte_id) VALUES (3,'Torneo Sevilla de 200 metros','2021-12-05','2021-12-16',2,2);
+INSERT INTO torneos(id,name,fecha_inicio,fecha_fin,pista_id,deporte_id) VALUES (2,'Torneo Sevilla de 200 metros de Primavera','2020-05-16','2020-05-20',2,2);
+INSERT INTO torneos(id,name,fecha_inicio,fecha_fin,pista_id,deporte_id) VALUES (3,'Torneo Sevilla de 200 metros de Invierno','2021-12-05','2021-12-16',2,2);
 INSERT INTO torneos(id,name,fecha_inicio,fecha_fin,pista_id,deporte_id) VALUES (4,'Torneo Dos Hermanas Javalina','2021-01-05','2021-01-10',3,3);
 INSERT INTO torneos(id,name,fecha_inicio,fecha_fin,pista_id,deporte_id) VALUES (5,'Torneo Dos Hermanas 100 metros','2021-11-26','2021-11-30',5,1);
 
@@ -164,6 +164,9 @@ INSERT INTO torneo_participantes(torneo_id,athlete_id) VALUES (4, 6);
 INSERT INTO torneo_participantes(torneo_id,athlete_id) VALUES (4, 8);
 INSERT INTO torneo_participantes(torneo_id,athlete_id) VALUES (4, 11);
 INSERT INTO torneo_participantes(torneo_id,athlete_id) VALUES (4, 15);
+
+INSERT INTO resultados(id, torneo_id, athlete_id, posicion) VALUES (1,2,4,1);
+INSERT INTO resultados(id, torneo_id, athlete_id, posicion) VALUES (2,2,5,2);
 
 INSERT INTO sanciones(id,athlete_id,fecha_fin,descripcion) VALUES(1,1,'2020-10-16','El deportista fue sancionado por saltarse una norma');
 INSERT INTO sanciones(id,athlete_id,fecha_fin,descripcion) VALUES(2,2,'2021-12-15','El deportista fue sancionado por saltarse una norma');
