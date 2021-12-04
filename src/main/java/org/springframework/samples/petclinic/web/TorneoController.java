@@ -2,8 +2,10 @@ package org.springframework.samples.petclinic.web;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -197,8 +199,10 @@ public class TorneoController {
 	@GetMapping("/torneos/show/{torneoId}")
 	public String showTorneo(@PathVariable("torneoId") int torneoId,ModelMap model) {
 		Torneo torneo = this.torneoService.findTorneoById(torneoId);
+		List<Athlete> atheltesWithoutResult = torneo.getParticipantes().stream().filter(x->!x.getResultados().stream().anyMatch(y->y.getTorneo()==torneo)).collect(Collectors.toList());
 		model.addAttribute("torneo",torneo);
-		log.info("Mostrando los datos del torneo "+ torneo.getName());
+		model.addAttribute("atheltesWithoutResult", atheltesWithoutResult);
+    log.info("Mostrando los datos del torneo "+ torneo.getName());
 		return "torneos/torneoDetails";
 	}
 

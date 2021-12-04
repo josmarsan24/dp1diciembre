@@ -81,6 +81,10 @@ public class Athlete extends Persona{
 	@JoinColumn(name = "entrenador_id")
 	private Entrenador entrenador;
 	
+	@ManyToOne
+	@JoinColumn(name = "patrocinador_id")
+	private Patrocinador patrocinador;
+	
 	@ManyToMany(mappedBy = "participantes")
 	private Set<Torneo> torneos;
 	
@@ -110,6 +114,21 @@ public class Athlete extends Persona{
 	@ManyToOne
 	@JoinColumn(name = "deporte_id")
 	private Deporte deporte;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "atleta")
+	private Set<Resultado> resultados;
+	
+	public void addResultado(Resultado resultado) {
+		getResultadosInternal().add(resultado);
+		resultado.setAtleta(this);
+	}
+	
+	protected Set<Resultado> getResultadosInternal(){
+		if (this.resultados == null) {
+			this.resultados = new HashSet<>();
+		}
+		return this.resultados;
+	}
 }	
 	
 	

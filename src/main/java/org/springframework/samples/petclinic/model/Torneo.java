@@ -75,4 +75,19 @@ public class Torneo extends NamedEntity{
 		athletes.add(a);
 		setParticipantes(athletes);
 	}
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "torneo")
+	private Set<Resultado> resultados;
+	
+	public void addResultado(Resultado resultado) {
+		getResultadosInternal().add(resultado);
+		resultado.setTorneo(this);
+	}
+	
+	protected Set<Resultado> getResultadosInternal(){
+		if (this.resultados == null) {
+			this.resultados = new HashSet<>();
+		}
+		return this.resultados;
+	}
 }

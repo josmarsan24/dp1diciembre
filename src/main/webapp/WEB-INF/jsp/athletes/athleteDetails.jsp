@@ -36,6 +36,27 @@
             <td><c:out value="${athlete.deporte.name}"/></td>
         </tr>
     </table>
+    
+    	<c:if test="${athlete.patrocinador != null}">
+    	 <h2>Patrocinador:</h2>
+    	 <table class="table table-striped">
+            <tr>
+                <td valign="top">
+                    <dl class="dl-horizontal">
+                        <dt>Nombre</dt>
+                        <dd><c:out value="${athlete.patrocinador.name}"/></dd>
+                        <dt>Tipo</dt>
+                        <dd><c:out value="${athlete.patrocinador.tipo}"/></dd>
+                        <dt>Twitter</dt>
+                        <dd><c:out value="${athlete.patrocinador.twitter}"/></dd>
+                        <dt>Instagram</dt>
+                        <dd><c:out value="${athlete.patrocinador.instagram}"/></dd>
+                        </dl>
+                </td>
+    </table>
+     </c:if>
+     
+     
       <sec:authentication var="user" property="name" />
   
     <spring:url value="{athleteId}/edit" var="editUrl">
@@ -102,5 +123,13 @@
                        </dl>
                 </td>
 		</c:forEach>
-    </table>  
+		</table> 
+        <h2>Resultados</h2>
+        <c:forEach var="resultado" items="${athlete.resultados}">
+        <tr>
+         <td><b><c:out value="${resultado.posicion}º ${resultado.torneo.name} "/></b><br></td>
+         </tr>
+        </c:forEach>
+    
+    
 </petclinic:layout>

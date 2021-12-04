@@ -127,14 +127,18 @@ INSERT INTO entrenadores(id, nombre, apellidos, dni, email, deporte_id, username
 INSERT INTO entrenadores(id, nombre, apellidos, dni, email, deporte_id, username) VALUES (5, 'Noa', 'Herrero ','84531765F','',3,'e2');
 
 INSERT INTO torneos(id,name,fecha_inicio,fecha_fin,pista_id,deporte_id) VALUES (1,'Torneo Huelva de 100 metros','2021-12-16','2021-12-20',1,1);
-INSERT INTO torneos(id,name,fecha_inicio,fecha_fin,pista_id,deporte_id) VALUES (2,'Torneo Sevilla de 200 metros','2020-05-16','2020-05-20',2,2);
-INSERT INTO torneos(id,name,fecha_inicio,fecha_fin,pista_id,deporte_id) VALUES (3,'Torneo Sevilla de 200 metros','2021-12-05','2021-12-16',2,2);
+INSERT INTO torneos(id,name,fecha_inicio,fecha_fin,pista_id,deporte_id) VALUES (2,'Torneo Sevilla de 200 metros de Primavera','2020-05-16','2020-05-20',2,2);
+INSERT INTO torneos(id,name,fecha_inicio,fecha_fin,pista_id,deporte_id) VALUES (3,'Torneo Sevilla de 200 metros de Invierno','2021-12-05','2021-12-16',2,2);
 INSERT INTO torneos(id,name,fecha_inicio,fecha_fin,pista_id,deporte_id) VALUES (4,'Torneo Dos Hermanas Javalina','2021-01-05','2021-01-10',3,3);
 INSERT INTO torneos(id,name,fecha_inicio,fecha_fin,pista_id,deporte_id) VALUES (5,'Torneo Dos Hermanas 100 metros','2021-11-26','2021-11-30',5,1);
 
-INSERT INTO athletes(id, nombre, apellidos, dni, email, height, weight, genero,entrenador_id, deporte_id) VALUES (1,'Lucas','Martínez', '77788899J','lucasmartinez@gmail.com','1.80','86',0,1,1);
-INSERT INTO athletes(id, nombre, apellidos, dni, email, height, weight, genero,entrenador_id, deporte_id) VALUES (2,'Carlos','Fernández','77678849S','carlosfernandez@gmail.com','1.76','70',0,1,1);
-INSERT INTO athletes(id, nombre, apellidos, dni, email, height, weight, genero,entrenador_id, deporte_id) VALUES (3,'Pablo','Aguilar', '55973188H','pabloAgui33@gmail.com','1.74','80',0,1,1);
+INSERT INTO patrocinadores(id,name,tipo,twitter,instagram) VALUES (1,'Powerade','Bebidas energeticas',null,null);
+INSERT INTO patrocinadores(id,name,tipo,twitter,instagram) VALUES (2,'Adidas','Ropa deportiva',null,null);
+INSERT INTO patrocinadores(id,name,tipo,twitter,instagram) VALUES (3,'Myprotein','Ropa y nutrición deportiva',null,null);
+
+INSERT INTO athletes(id, nombre, apellidos, dni, email, height, weight, genero,entrenador_id, deporte_id, patrocinador_id) VALUES (1,'Lucas','Martínez', '77788899J','lucasmartinez@gmail.com','1.80','86',0,1,1,1);
+INSERT INTO athletes(id, nombre, apellidos, dni, email, height, weight, genero,entrenador_id, deporte_id, patrocinador_id) VALUES (2,'Carlos','Fernández','77678849S','carlosfernandez@gmail.com','1.76','70',0,1,1,2);
+INSERT INTO athletes(id, nombre, apellidos, dni, email, height, weight, genero,entrenador_id, deporte_id, patrocinador_id) VALUES (3,'Pablo','Aguilar', '55973188H','pabloAgui33@gmail.com','1.74','80',0,1,1,3);
 INSERT INTO athletes(id, nombre, apellidos, dni, email, height, weight, genero,entrenador_id, deporte_id) VALUES (4,'María','López','48612357K','marialopez@gmail.es','1.65','60',1,2,2);
 INSERT INTO athletes(id, nombre, apellidos, dni, email, height, weight, genero,entrenador_id, deporte_id) VALUES (5,'Pedro','Duran','14752386J','','1.80','83',0,4,2);
 INSERT INTO athletes(id, nombre, apellidos, dni, email, height, weight, genero,entrenador_id, deporte_id) VALUES (6,'Pilar','Mora','12547638F','pilarmora43@gmail.com','1.70','77',1,5,3);
@@ -160,6 +164,9 @@ INSERT INTO torneo_participantes(torneo_id,athlete_id) VALUES (4, 6);
 INSERT INTO torneo_participantes(torneo_id,athlete_id) VALUES (4, 8);
 INSERT INTO torneo_participantes(torneo_id,athlete_id) VALUES (4, 11);
 INSERT INTO torneo_participantes(torneo_id,athlete_id) VALUES (4, 15);
+
+INSERT INTO resultados(id, torneo_id, athlete_id, posicion) VALUES (1,2,4,1);
+INSERT INTO resultados(id, torneo_id, athlete_id, posicion) VALUES (2,2,5,2);
 
 INSERT INTO sanciones(id,athlete_id,fecha_fin,descripcion) VALUES(1,1,'2020-10-16','El deportista fue sancionado por saltarse una norma');
 INSERT INTO sanciones(id,athlete_id,fecha_fin,descripcion) VALUES(2,2,'2021-12-15','El deportista fue sancionado por saltarse una norma');
