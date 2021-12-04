@@ -20,7 +20,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import lombok.extern.slf4j.Slf4j;
 
+
+@Slf4j
 @Controller
 public class ResultadoController {
 
@@ -57,6 +60,7 @@ public class ResultadoController {
 			model.put("resultado", resultado);
 			model.addAttribute("torneo", torneo);
 			model.addAttribute("athlete", atleta);
+			log.error("Hay errores en el formulario");
 			return "resultados/editResultado";
 		} else {
 			try {
@@ -68,9 +72,10 @@ public class ResultadoController {
 						"la posicion esta fuera de rango o ya esta ocupada por otro atleta");
 				model.addAttribute("torneo", torneo);
 				model.addAttribute("athlete", atleta);
+				log.error("La posicion esta fuera de rango o ya esta ocupada por otro atleta");
 				return "resultados/editResultado";
 			}
-
+			log.info("Se ha creado el resultado del torneo "+ torneo.getName());
 			return "redirect:/torneos/show/{torneoId}";
 		}
 	}
