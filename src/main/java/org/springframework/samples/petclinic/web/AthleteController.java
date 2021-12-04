@@ -56,6 +56,7 @@ public class AthleteController {
 	
 	@GetMapping( value = "/entrenadores/{entrenadorId}/athletes/new")
 	public String initCreationForm(@PathVariable("entrenadorId") int entrenadorId,Entrenador entrenador, ModelMap model) {
+		log.info("Creando nuevo atleta");
 		Athlete athlete = new Athlete();
 		entrenador.addAthlete(athlete);
 		if(this.entrenadorService.findEntrenadorById(entrenadorId).getUser()!=null) {
@@ -73,7 +74,7 @@ public class AthleteController {
 			if(this.entrenadorService.findEntrenadorById(entrenadorId).getUser()!=null) {
 				model.addAttribute("username",this.entrenadorService.findEntrenadorById(entrenadorId).getUser().getUsername());
 			}
-			log.warn("Hay errores en el formulario");
+			log.error("Hay errores en el formulario");
 			return AthleteController.VIEWS_ATHLETE_CREATE_OR_UPDATE_FORM;
 		} else {
 			Entrenador entrenador = this.entrenadorService.findEntrenadorById(entrenadorId);
@@ -95,6 +96,7 @@ public class AthleteController {
 		model.put("edit", edit);
 		if(athlete.getUser()!=null) {
 			model.addAttribute("username",athlete.getUser().getUsername());
+			log.info("Se va a editar el deportista "+ athlete.getNombre() + " "+ athlete.getApellidos());
 		}
 		return VIEWS_ATHLETE_CREATE_OR_UPDATE_FORM;
 	}
@@ -113,7 +115,7 @@ public class AthleteController {
 			athlete.setDeporte(athleteToUpdate.getDeporte());
 			BeanUtils.copyProperties(athlete, athleteToUpdate, "id","entrenador");
 			this.athleteService.save(athleteToUpdate); 
-			log.info("Se ha actualizado el deportista "+athlete.getNombre()+" "+athlete.getApellidos());
+			log.info("Se ha editado el deportista "+athlete.getNombre()+" "+athlete.getApellidos());
 			return "redirect:/athletes/show/{athleteId}";
 		}
 		
@@ -143,7 +145,7 @@ public class AthleteController {
 		String vista = "athletes/listAthletes";
 		Iterable<Athlete> athletes = this.athleteService.findAll();
 		modelMap.addAttribute("athletes", athletes);
-		log.info("Se accede a la lista de deportistas");
+		log.info("Accediendo a la lista de deportistas");
 		return vista;
 		
 	}
@@ -164,6 +166,7 @@ public class AthleteController {
 		Athlete athlete = athleteService.findAthleteById(athleteId);
 		athleteService.delete(athlete);
 		modelMap.addAttribute("message", "Deportista borrado con exito");
+		log.info("Se ha eliminado el deportista");
 		String view = athletesList(modelMap);
 		return view;
 	}

@@ -14,10 +14,15 @@ import org.springframework.samples.petclinic.model.Torneo;
 import org.springframework.samples.petclinic.repository.AthleteRepository;
 import org.springframework.samples.petclinic.repository.SancionRepository;
 import org.springframework.samples.petclinic.service.exceptions.IncongruentSancionDateExcepcion;
+import org.springframework.samples.petclinic.web.TorneoController;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import jdk.internal.jline.internal.Log;
+import lombok.extern.slf4j.Slf4j;
 
+
+@Slf4j
 @Service
 public class SancionService {
 	
@@ -89,6 +94,8 @@ public class SancionService {
 						t.setParticipantes(participantes);
 						torneosAux.add(t);
 						}
+					log.info("Se ha creado la sanción");
+					log.info("Se han eliminado los deportistas de los torneos que aún no han empezado y que terminan antes de que acabe la sanción");
 					}
 				torneos.removeAll(torneosAux);
 				a.setTorneos(torneos);

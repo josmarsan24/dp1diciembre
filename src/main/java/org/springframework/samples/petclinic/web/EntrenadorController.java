@@ -33,6 +33,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class EntrenadorController {
 
@@ -61,6 +65,7 @@ public class EntrenadorController {
 	@GetMapping(value = "/entrenador/new")
 	public String initCreationForm(Map<String, Object> model) {
 		Entrenador entrenador = new Entrenador();
+		log.info("Creando un nuevo entrenador");
 		model.put("entrenador", entrenador);
 		return VIEWS_ENTRENADOR_CREATE_OR_UPDATE_FORM;
 	}
@@ -68,10 +73,11 @@ public class EntrenadorController {
 	@PostMapping(value = "/entrenador/new")
 	public String processCreationForm(@Valid Entrenador entrenador, BindingResult result) {
 		if (result.hasErrors()) {
+			log.error("Hay errores en el formulario");
 			return VIEWS_ENTRENADOR_CREATE_OR_UPDATE_FORM;
 		} else {
 			this.entrenadorService.save(entrenador);
-
+			log.info("Se ha creado en el entrenador "+entrenador.getNombre() +" "+ entrenador.getApellidos());
 			return "redirect:/entrenadores/" + entrenador.getId();
 		}
 	}
@@ -81,6 +87,7 @@ public class EntrenadorController {
 		String vista = "entrenadores/entrenadorList";
 		Iterable<Entrenador> entrenadores = entrenadorService.findAll();
 		modelMap.addAttribute("entrenadores", entrenadores);
+		log.info("Mostrando todos los entrenadores");
 		return vista;
 	}
 
@@ -91,6 +98,7 @@ public class EntrenadorController {
 		if(entrenador.getUser()!=null) {
 			model.addAttribute("username",entrenador.getUser().getUsername());
 		}
+		log.info("Se va a actualizar el entrenador "+ entrenador.getNombre() + " "+entrenador.getApellidos());
 		boolean edit = true;
 		model.put("edit", edit);
 		return VIEWS_ENTRENADOR_CREATE_OR_UPDATE_FORM;
@@ -102,12 +110,14 @@ public class EntrenadorController {
 		if (result.hasErrors()) {
 			boolean edit = true;
 			model.put("edit", edit);
+			log.warn("Hay errores en el formulario");
 			return VIEWS_ENTRENADOR_CREATE_OR_UPDATE_FORM;
 		} else {
 			entrenador.setId(entrenadorId);
 			entrenador.setUser(this.entrenadorService.findEntrenadorById(entrenadorId).getUser());
 			entrenador.setDeporte(this.entrenadorService.findEntrenadorById(entrenadorId).getDeporte());
 			this.entrenadorService.save(entrenador);
+			log.info("Se ha editado el entrenador "+entrenador.getNombre()+" "+entrenador.getApellidos());
 			return "redirect:/entrenadores/{entrenadorId}";
 		}
 	}
@@ -119,6 +129,7 @@ public class EntrenadorController {
 			model.addAttribute("username",entrenador.getUser().getUsername());
 		}
 		model.addAttribute("entrenador",entrenador);
+		log.info("Mostrando al entrenador "+ entrenador.getNombre()+" "+entrenador.getApellidos());
 		return "entrenadores/entrenadorDetails";
 	}
 
@@ -145,6 +156,7 @@ public class EntrenadorController {
 		modelMap.addAttribute("atletas", atletas);
 		modelMap.addAttribute("entrenador", entrenador);
 		String vista = "entrenadores/entrenados";
+		log.info("Mostrando todos los deportistas con el deporte "+ entrenador.getDeporte().getName()+ " que no tienen entrenador");
 		return vista;
 		
 	}
@@ -152,6 +164,9 @@ public class EntrenadorController {
 	@GetMapping(path = "/entrenadores/{entrenadorId}/add/{athleteId}")
 	public String añadirEntrenado(@PathVariable("entrenadorId") int entrenadorId, @PathVariable("athleteId") int athleteId, ModelMap modelMap) {
 		this.athleteService.añadirEntrenadorDeAtleta(athleteId,entrenadorId);
+		Athlete a = athleteService.findAthleteById(athleteId);
+		Entrenador e = entrenadorService.findEntrenadorById(entrenadorId);
+		log.info("El atleta "+a.getNombre() +a.getApellidos()+" ha sido añadido a la lista de entrenados del entrenador "+ e.getNombre()+" "+e.getApellidos());
 		return "redirect:/entrenadores/{entrenadorId}";
 	}
 	
@@ -161,6 +176,7 @@ public class EntrenadorController {
 		this.entrenadorService.delete(entrenador);
 		modelMap.addAttribute("message", "Entrenador borrado con exito");
 		String view = entrenadoresList(modelMap);
+		log.info("Se ha eliminado el entrenador "+entrenador.getNombre()+" "+entrenador.getApellidos());
 		return view;
 	}
 

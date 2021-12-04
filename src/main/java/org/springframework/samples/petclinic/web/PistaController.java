@@ -21,6 +21,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.sun.tools.sjavac.Log;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 @RequestMapping("/pistas")
 public class PistaController {
@@ -36,6 +40,7 @@ public class PistaController {
 		String view="pistas/listPistas";
 		Iterable<Pista> pistas = pistaService.findAll();
 		modelMap.addAttribute("pistas", pistas);
+		log.info("Se accede al listado de pistas");
 		return view;
 	}
 	
@@ -43,6 +48,7 @@ public class PistaController {
 	public String crearPista(ModelMap modelMap) {
 		String view="pistas/editPista";
 		modelMap.addAttribute("pista", new Pista());
+		log.info("Se va a crear una nueva pista");
 		return view;
 	}
 	
@@ -50,9 +56,11 @@ public class PistaController {
 	public String processCreationForm(@Valid final Pista pista, final BindingResult result, final ModelMap model) {
 		if (result.hasErrors()) {
 			model.put("pista", pista);
+			log.error("Hay errores en el modelo");
 			return "pistas/editPista";
 		} else {
 			this.pistaService.save(pista);
+			log.info("Se ha creado la pista con nombre "+pista.getName());
 			return "redirect:/pistas";
 			}
 		}
@@ -66,6 +74,7 @@ public class PistaController {
 			pistaService.delete(pista);
 			modelMap.addAttribute("message", "Pista borrada con exito");
 			view = listadoPistas(modelMap);
+			log.info("Se ha eliminado la pista "+ pista.getName());
 			
 		return view;
 	}

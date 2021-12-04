@@ -99,10 +99,12 @@ public class AthleteService {
 	@Transactional
 	public void eliminarEntrenadorDeAtleta(int i) {
 		athleteRepository.eliminarEntrenadorDeAtleta(i);
+		log.info("Se ha eliminado el entrenador del deportista indicado");
 	}
 
 	@Transactional
 	public Set<Athlete> buscarAtletaSinEntrenador() {
+		log.info("Se van a obtener todos los atletas que no tienen entrenador");
 		return athleteRepository.buscarAtletaSinEntrenador();
 	}
 	
