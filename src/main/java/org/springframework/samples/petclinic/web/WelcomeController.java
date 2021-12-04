@@ -13,14 +13,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.ArrayList;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 
+
+@Slf4j
 @Controller
 public class WelcomeController {
 	
 	
 	  @GetMapping({"/","/welcome"})
 	  public String welcome(Map<String, Object> model) {	    
-		  
+		  log.info("Se ha iniciado la aplicación");
 		  List<Person> personas = new ArrayList<Person>();
 		  
 		  Person jualeoval= new Person();

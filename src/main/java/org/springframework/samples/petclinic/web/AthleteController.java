@@ -10,6 +10,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.samples.petclinic.PetclinicApplication;
 import org.springframework.samples.petclinic.model.Athlete;
 import org.springframework.samples.petclinic.model.Deporte;
 import org.springframework.samples.petclinic.model.Entrenador;
@@ -25,6 +26,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Controller
 public class AthleteController {
 	
@@ -53,6 +56,7 @@ public class AthleteController {
 	
 	@GetMapping( value = "/entrenadores/{entrenadorId}/athletes/new")
 	public String initCreationForm(@PathVariable("entrenadorId") int entrenadorId,Entrenador entrenador, ModelMap model) {
+		log.info("Creando nuevo atleta");
 		Athlete athlete = new Athlete();
 		entrenador.addAthlete(athlete);
 		if(this.entrenadorService.findEntrenadorById(entrenadorId).getUser()!=null) {
@@ -70,13 +74,16 @@ public class AthleteController {
 			if(this.entrenadorService.findEntrenadorById(entrenadorId).getUser()!=null) {
 				model.addAttribute("username",this.entrenadorService.findEntrenadorById(entrenadorId).getUser().getUsername());
 			}
+			log.error("Hay errores en el formulario");
 			return AthleteController.VIEWS_ATHLETE_CREATE_OR_UPDATE_FORM;
 		} else {
 			Entrenador entrenador = this.entrenadorService.findEntrenadorById(entrenadorId);
 			entrenador.addAthlete(athlete);
 			athlete.setDeporte(entrenador.getDeporte());
 			this.athleteService.save(athlete);
+			log.info("Se ha creado el deportista "+athlete.getNombre() + " " + athlete.getApellidos());
 			this.entrenadorService.save(entrenador);
+			log.info("Se ha añadido el deportista al entrenador "+entrenador.getNombre() + " " + entrenador.getApellidos());
 			return "redirect:/entrenadores/{entrenadorId}";
 			}
 		}
@@ -89,6 +96,7 @@ public class AthleteController {
 		model.put("edit", edit);
 		if(athlete.getUser()!=null) {
 			model.addAttribute("username",athlete.getUser().getUsername());
+			log.info("Se va a editar el deportista "+ athlete.getNombre() + " "+ athlete.getApellidos());
 		}
 		return VIEWS_ATHLETE_CREATE_OR_UPDATE_FORM;
 	}
@@ -99,6 +107,7 @@ public class AthleteController {
 		if(result.hasErrors()) {
 			model.put("athlete", athlete);
 			model.put("edit", edit);
+			log.warn("Hay errores en el formulario");
 			return VIEWS_ATHLETE_CREATE_OR_UPDATE_FORM;
 		} else {
 			Athlete athleteToUpdate=this.athleteService.findAthleteById(athleteId);
@@ -106,6 +115,7 @@ public class AthleteController {
 			athlete.setDeporte(athleteToUpdate.getDeporte());
 			BeanUtils.copyProperties(athlete, athleteToUpdate, "id","entrenador");
 			this.athleteService.save(athleteToUpdate); 
+			log.info("Se ha editado el deportista "+athlete.getNombre()+" "+athlete.getApellidos());
 			return "redirect:/athletes/show/{athleteId}";
 		}
 		
@@ -122,9 +132,11 @@ public class AthleteController {
 	public String processCreationForm(@Valid final Athlete athlete, final BindingResult result, final ModelMap model) {
 		if (result.hasErrors()) {
 			model.put("athlete", athlete);
+			log.warn("Hay errores en el formulario");
 			return AthleteController.VIEWS_ATHLETE_CREATE_OR_UPDATE_FORM;
 		} else {
 			this.athleteService.save(athlete);
+			log.info("Se ha creado el deportista "+athlete.getNombre() + " " + athlete.getApellidos());
 			return "redirect:/athletes";
 			}
 		}
@@ -133,6 +145,7 @@ public class AthleteController {
 		String vista = "athletes/listAthletes";
 		Iterable<Athlete> athletes = this.athleteService.findAll();
 		modelMap.addAttribute("athletes", athletes);
+		log.info("Accediendo a la lista de deportistas");
 		return vista;
 		
 	}
@@ -144,6 +157,7 @@ public class AthleteController {
 			modelMap.addAttribute("username",athlete.getUser().getUsername());
 		}
 		modelMap.addAttribute("athlete",athlete);
+		log.info("Se accede a los detalles del deportista "+athlete.getNombre() + " "+athlete.getApellidos());
 		return "athletes/athleteDetails";
 	}
 
@@ -152,6 +166,7 @@ public class AthleteController {
 		Athlete athlete = athleteService.findAthleteById(athleteId);
 		athleteService.delete(athlete);
 		modelMap.addAttribute("message", "Deportista borrado con exito");
+		log.info("Se ha eliminado el deportista");
 		String view = athletesList(modelMap);
 		return view;
 	}

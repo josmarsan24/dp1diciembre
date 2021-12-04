@@ -21,9 +21,14 @@ import org.springframework.samples.petclinic.repository.TorneoRepostitory;
 import org.springframework.samples.petclinic.service.exceptions.IncongruentSancionDateExcepcion;
 import org.springframework.samples.petclinic.service.exceptions.IncongruentTorneoFinDateExcepcion;
 import org.springframework.samples.petclinic.service.exceptions.IncongruentTorneoIniDateExcepcion;
+import org.springframework.samples.petclinic.web.EntrenadorController;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import jdk.internal.jline.internal.Log;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class TorneoService {
 
@@ -116,6 +121,8 @@ public class TorneoService {
 				}
 			}
 		}
+		log.info("Se han eliminado los torneos existentes de la pista "+pista.getName());
+		
 	}
 	
 }

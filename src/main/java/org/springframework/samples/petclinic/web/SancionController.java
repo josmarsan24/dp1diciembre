@@ -20,6 +20,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jdk.internal.jline.internal.Log;
+import lombok.extern.slf4j.Slf4j;
+
+
+@Slf4j
 @Controller
 @RequestMapping("/athletes/show/{athleteId}")
 public class SancionController {
@@ -44,6 +49,7 @@ public class SancionController {
 		Sancion sancion = new Sancion();
 		sancion.setAthlete(athlete);
 		model.put("sancion", sancion);
+		log.info("El deportista "+athlete.getNombre()+" "+athlete.getApellidos()+ "está sancionado por el siguiente motivo: "+sancion.getDescripcion());
 		return "athletes/createOrUpdateSancionForm";
 	}
 	
@@ -53,6 +59,7 @@ public class SancionController {
 		if (result.hasErrors()) {
 			sancion.setAthlete(athleteService.findAthleteById(athleteId));
 			model.put("sancion", sancion);
+			log.error("Hay errores en el formulario");
 			return "athletes/createOrUpdateSancionForm";
 		}
 		else {
@@ -61,8 +68,10 @@ public class SancionController {
 			this.sancionService.saveSancion(sancion);
 			}catch (IncongruentSancionDateExcepcion ex) {
 				result.rejectValue("fechaFin", "fechaPosActual", "Debe ser posterior al dia actual");
+				log.error("La fecha debe ser posterior a la fecha actual");
 				return "athletes/createOrUpdateSancionForm";
 			}
+			log.info("Se ha creado la sanción");
 			return "redirect:/athletes/show/{athleteId}";
 		}
 	}
@@ -72,6 +81,7 @@ public class SancionController {
 			@PathVariable("sancionId") int sancionId, ModelMap modelMap) {
 		Sancion sancion = this.sancionService.findSancionById(sancionId);
 		this.sancionService.deleteSancion(sancion);
+		log.info("Se ha eliminado la sanción");
 		return "redirect:/athletes/show/{athleteId}";
 		
 	}
