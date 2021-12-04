@@ -71,14 +71,18 @@ public class TorneoControllerTests {
 		ath.setDni("43251426F");
 		ath.setEmail("");
 		ath.setGenero(Genero.HOMBRE);
+		
+		Set<Athlete> participantes = new HashSet<Athlete>();
 		torneo1.setId(TEST_Torneo_ID);
 		torneo1.setName("Torneo Test");
 		torneo1.setFechaInicio(LocalDate.parse("2022-12-03"));
 		torneo1.setFechaFin(LocalDate.parse("2022-12-10"));
+		torneo1.setParticipantes(participantes);
 		torneo2.setId(TEST_Torneo_ID2);
 		torneo2.setName("Torneo Test2");
 		torneo2.setFechaInicio(LocalDate.parse("2020-12-03"));
 		torneo2.setFechaFin(LocalDate.parse("2020-12-10"));
+		torneo2.setParticipantes(participantes);
 		given(athleteService.findAthleteById(TEST_Athlete_ID)).willReturn(ath);
 		given(torneoService.findTorneoById(TEST_Torneo_ID)).willReturn(torneo1);
 		given(torneoService.findTorneoById(TEST_Torneo_ID2)).willReturn(torneo2);

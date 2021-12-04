@@ -8,11 +8,11 @@
 
 <petclinic:layout pageName="torneos">
 	<h2>Torneo</h2>
-	<table class="table table-striped">
+	
 		<h3>
 			<c:out value="${torneo.name}" />
 		</h3>
-
+		<table class="table table-striped">
 		<tr>
 			<th>Fecha de Inicio</th>
 			<td><b><c:out value="${torneo.fechaInicio}" /></b></td>
@@ -32,6 +32,7 @@
 	</table>
 	<br />
 	<br />
+	
 	<h2>Deportistas Participantes</h2>
 	<br>
 	<table class="table table-striped">
@@ -42,30 +43,10 @@
 						<spring:param name="athleteId" value="${athlete.id}" />
 					</spring:url> <a href="${fn:escapeXml(athleteUrl)}"><c:out
 							value="${athlete.nombre} ${athlete.apellidos}" /></a></b>
-
 			</h2>
-
-
-			<%--     <spring:url value="/entrenadores/{entrenadorId}/delete/{athleteId}/{user}" var="athletedelUrl"> --%>
-			<%--     	<spring:param name="athleteId" value="${athlete.id}"/> --%>
-			<%--     	<spring:param name="entrenadorId" value="${athlete.entrenador.id}"/> --%>
-			<%--     	 <sec:authorize access="hasAuthority('admin')"> --%>
-			<%-- 		<spring:param name="user" value="gy7gt87qgwowhbudvhbwkwpfk4fa545w46894wdyftwqtfvdghwvdywt76twt7tqte"/> --%>
-			<%-- 		</sec:authorize> --%>
-			<%--     	 <sec:authorize access="hasAuthority('entrenador')"> --%>
-			<%-- 		<spring:param name="user" value="${user}"/> --%>
-			<%-- 		</sec:authorize> --%>
-			<%--      </spring:url> --%>
-			<%--     <sec:authorize access="hasAuthority('admin')"> --%>
-			<%--   		<a href="${fn:escapeXml(athletedelUrl)}" class="btn btn-default">Eliminar</a><br/> --%>
-			<%--     </sec:authorize> --%>
-			<%--     <sec:authorize access="hasAnyAuthority('entrenador')"> --%>
-			<%-- 	<c:if test="${username == user}"> --%>
-			<%-- 	  <a href="${fn:escapeXml(athletedelUrl)}" class="btn btn-default">Eliminar</a><br/> --%>
-			<%-- 	  </c:if> --%>
-			<%-- 	</sec:authorize>                --%>
-
 		</c:forEach>
+		</table>
+		
 		<table class="table table-striped">
 			<sec:authorize access="hasAuthority('admin')">
 				<h2>Deportistas sin resultado</h2>
@@ -73,7 +54,8 @@
 
 					<tr>
 						<td><b> <c:out
-									value="${athlete.nombre} ${athlete.apellidos}" /></b> <spring:url
+									value="${athlete.nombre} ${athlete.apellidos}" /></b> 
+									<spring:url
 								value="/torneos/show/{torneoId}/{athleteId}/resultado/new"
 								var="addResultadoUrl">
 								<spring:param name="athleteId" value="${athlete.id}" />
@@ -104,10 +86,5 @@
 			<a href="${fn:escapeXml(addParticipanteUrl)}" class="btn btn-default">Añadir
 				Participante</a>
 		</sec:authorize>
-		<%--     <sec:authentication var="user" property="name" /> --%>
-		<%--     <sec:authorize access="hasAnyAuthority('entrenador')"> --%>
-		<%-- 	<c:if test="${username == user}"> --%>
-		<%-- 	  <a href="${fn:escapeXml(addAthleteUrl)}" class="btn btn-default">Añadir Deportista</a> --%>
-		<%-- 	</c:if> --%>
-		<%-- 	</sec:authorize> --%>
+		
 </petclinic:layout>

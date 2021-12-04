@@ -113,7 +113,7 @@ public class AthleteController {
 			Athlete athleteToUpdate=this.athleteService.findAthleteById(athleteId);
 			athlete.setUser(athleteToUpdate.getUser());
 			athlete.setDeporte(athleteToUpdate.getDeporte());
-			BeanUtils.copyProperties(athlete, athleteToUpdate, "id","entrenador");
+			BeanUtils.copyProperties(athlete, athleteToUpdate, "id","entrenador","patrocinador");
 			this.athleteService.save(athleteToUpdate); 
 			log.info("Se ha editado el deportista "+athlete.getNombre()+" "+athlete.getApellidos());
 			return "redirect:/athletes/show/{athleteId}";

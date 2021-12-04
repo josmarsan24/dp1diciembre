@@ -202,7 +202,7 @@ public class TorneoController {
 		List<Athlete> atheltesWithoutResult = torneo.getParticipantes().stream().filter(x->!x.getResultados().stream().anyMatch(y->y.getTorneo()==torneo)).collect(Collectors.toList());
 		model.addAttribute("torneo",torneo);
 		model.addAttribute("atheltesWithoutResult", atheltesWithoutResult);
-    log.info("Mostrando los datos del torneo "+ torneo.getName());
+		log.info("Mostrando los datos del torneo "+ torneo.getName());
 		return "torneos/torneoDetails";
 	}
 

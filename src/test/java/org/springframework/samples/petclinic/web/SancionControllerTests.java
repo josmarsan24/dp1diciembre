@@ -58,11 +58,14 @@ public class SancionControllerTests {
 		sancion.setDescripcion("Cometio una falta grave");
 		sancion.setFechaFin(LocalDate.parse("2022-12-03"));
 		ath = new Athlete();
+		ath.setId(TEST_ATHLETE_ID);
 		ath.setNombre("ath1");
+		ath.setApellidos("apellidos");
 		Set<Sancion> sanciones = new HashSet<Sancion>();
 		sanciones.add(sancion);
 		ath.setSanciones(sanciones);
 		given(this.sancionService.findSancionById(TEST_SANCION_ID)).willReturn(sancion);
+		given(this.athleteService.findAthleteById(TEST_ATHLETE_ID)).willReturn(ath);
 	}
 	
 	@WithMockUser(value = "spring")

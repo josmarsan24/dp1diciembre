@@ -8,6 +8,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
 import org.springframework.samples.petclinic.model.Athlete;
+import org.springframework.samples.petclinic.model.Deporte;
 import org.springframework.samples.petclinic.model.Entrenador;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.User;
@@ -73,15 +74,17 @@ class EntrenadorControllerTests {
 	private Entrenador ent2;
 	
 	private Athlete ath;
-	
 	private Athlete ath2;
-	
+
+	private Deporte deporte;
 	@BeforeEach
 	void setup() {
 		ent = new Entrenador();
 		ent2 = new Entrenador();
 		ath = new Athlete();
 		ath2 = new Athlete();
+		deporte = new Deporte();
+		deporte.setName("baloncesto");
 		Set<Athlete> athletes = new HashSet<Athlete>(); 
 		Set<Athlete> athletes2 = new HashSet<Athlete>(); 
 		athletes.add(ath);
@@ -95,6 +98,7 @@ class EntrenadorControllerTests {
 		ent.setEmail("");
 		ent.setAthletes(athletes);
 		ent.setUser(null);
+		ent.setDeporte(deporte);
 		//entrenador con user
 		User user = new User();
 		user.setUsername("username");
@@ -105,6 +109,7 @@ class EntrenadorControllerTests {
 		ent2.setDni("43251426G");
 		ent2.setEmail("");
 		ent2.setUser(user);
+		ent2.setDeporte(deporte);
 		given(entrenadorService.findEntrenadorById(TEST_ENTRENADOR_ID)).willReturn(ent);
 		given(entrenadorService.findEntrenadorById(TEST_ENTRENADOR_ID2)).willReturn(ent2);
 		given(athleteService.findAthleteByEntrenadorId(TEST_ENTRENADOR_ID)).willReturn(athletes);

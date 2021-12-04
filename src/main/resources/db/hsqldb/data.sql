@@ -165,8 +165,11 @@ INSERT INTO torneo_participantes(torneo_id,athlete_id) VALUES (4, 8);
 INSERT INTO torneo_participantes(torneo_id,athlete_id) VALUES (4, 11);
 INSERT INTO torneo_participantes(torneo_id,athlete_id) VALUES (4, 15);
 
-INSERT INTO resultados(id, torneo_id, athlete_id, posicion) VALUES (1,2,4,1);
-INSERT INTO resultados(id, torneo_id, athlete_id, posicion) VALUES (2,2,5,2);
+INSERT INTO resultados(id, torneo_id, athlete_id, posicion) VALUES (1,1,1,1);
+INSERT INTO resultados(id, torneo_id, athlete_id, posicion) VALUES (2,1,3,2);
+INSERT INTO resultados(id, torneo_id, athlete_id, posicion) VALUES (3,1,9,3);
+INSERT INTO resultados(id, torneo_id, athlete_id, posicion) VALUES (4,2,4,1);
+INSERT INTO resultados(id, torneo_id, athlete_id, posicion) VALUES (5,2,5,2);
 
 INSERT INTO sanciones(id,athlete_id,fecha_fin,descripcion) VALUES(1,1,'2020-10-16','El deportista fue sancionado por saltarse una norma');
 INSERT INTO sanciones(id,athlete_id,fecha_fin,descripcion) VALUES(2,2,'2021-12-15','El deportista fue sancionado por saltarse una norma');
