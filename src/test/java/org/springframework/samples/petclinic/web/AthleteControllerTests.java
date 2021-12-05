@@ -10,7 +10,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,11 +26,12 @@ import org.springframework.samples.petclinic.configuration.SecurityConfiguration
 import org.springframework.samples.petclinic.model.Athlete;
 import org.springframework.samples.petclinic.model.Entrenador;
 import org.springframework.samples.petclinic.model.Genero;
-import org.springframework.samples.petclinic.model.Sancion;
+import org.springframework.samples.petclinic.model.Patrocinador;
 import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.service.AthleteService;
 import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.EntrenadorService;
+import org.springframework.samples.petclinic.service.PatrocinadorService;
 import org.springframework.samples.petclinic.service.UserService;
 import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -47,11 +47,11 @@ public class AthleteControllerTests {
 	private static final int TEST_ATHLETE_ID = 1;
 	private static final int TEST_ATHLETE_ID2 = 2;
 	
-	@Autowired
-	private AthleteController athleteController;
-	
 	@MockBean
 	private EntrenadorService entrenadorService;
+	
+	@MockBean
+	private PatrocinadorService patrocinadorService;
 	
 	@MockBean
 	private AthleteService athleteService;
@@ -246,4 +246,19 @@ public class AthleteControllerTests {
 		  mockMvc.perform(get("/athletes/delete/{athletesId}", TEST_ATHLETE_ID))
 		  .andExpect(view().name("athletes/listAthletes"));
 }
+	 
+	 @WithMockUser(value = "spring")
+	  @Test
+	  void testDeletePatrocinador() throws Exception {
+		  mockMvc.perform(get("/athletes/show/{athleteId}/deletePatrocinador", TEST_ATHLETE_ID))
+		  .andExpect(view().name("redirect:/athletes/show/{athleteId}"));
+}
+	 
+	 @WithMockUser(value = "spring")
+	  @Test
+	  void testPatrocinadores() throws Exception {
+		  mockMvc.perform(get("/athletes/show/{athleteId}/patrocinadores", TEST_ATHLETE_ID))
+		  .andExpect(view().name("athletes/addPatrocinador")).andExpect(model().attributeExists("patrocinadores"));
+}
+
 }

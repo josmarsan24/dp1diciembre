@@ -3,13 +3,8 @@ package org.springframework.samples.petclinic.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-
-import java.util.Collection;
 import java.util.NoSuchElementException;
 import java.util.Set;
-
-import javax.validation.ConstraintViolationException;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +13,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.samples.petclinic.model.Athlete;
 import org.springframework.samples.petclinic.model.Entrenador;
 import org.springframework.samples.petclinic.model.User;
-import org.springframework.samples.petclinic.service.exceptions.IncongruentSancionDateExcepcion;
-import org.springframework.samples.petclinic.service.exceptions.NotValidPasswordException;
-import org.springframework.samples.petclinic.service.exceptions.NotValidUsernameException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -3,6 +3,8 @@ package org.springframework.samples.petclinic.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+import java.util.Set;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -25,8 +27,10 @@ public class PatrocinadorServiceTests {
 			assertNotEquals(a, null);
 			count2++;
 		}
+		Set<Patrocinador> pat = patrocinadorService.findPatrocinadorTypes(); 
 		assertEquals(count,3);
 		assertEquals(count2,3);
+		assertEquals(pat.size(), 3);
 	}
 	
 	@Test

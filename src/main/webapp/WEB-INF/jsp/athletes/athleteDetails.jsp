@@ -36,7 +36,17 @@
             <td><c:out value="${athlete.deporte.name}"/></td>
         </tr>
     </table>
-    
+    	
+    	<c:if test="${athlete.patrocinador == null}">
+    	<br>
+    	 <spring:url value="{athleteId}/patrocinadores" var="addPatroUrl">
+       					 	<spring:param name="athleteId" value="${athlete.id}"/>
+    						</spring:url>
+    						<sec:authorize access="hasAnyAuthority('admin')">
+   								<a href="${fn:escapeXml(addPatroUrl)}" class="btn btn-default">Agregar Patrocinador</a>
+  							</sec:authorize>  
+    	</c:if>
+    	
     	<c:if test="${athlete.patrocinador != null}">
     	 <h2>Patrocinador:</h2>
     	 <table class="table table-striped">
@@ -51,18 +61,27 @@
                         <dd><c:out value="${athlete.patrocinador.twitter}"/></dd>
                         <dt>Instagram</dt>
                         <dd><c:out value="${athlete.patrocinador.instagram}"/></dd>
+                        <br>
+                        <spring:url value="{athleteId}/deletePatrocinador" var="delPatroUrl">
+       					 	<spring:param name="athleteId" value="${athlete.id}"/>
+    						</spring:url>
+    						<sec:authorize access="hasAnyAuthority('admin')">
+   								<a href="${fn:escapeXml(delPatroUrl)}" class="btn btn-default">Eliminar Patrocinador</a>
+  							</sec:authorize>  
+  						
                         </dl>
                 </td>
     </table>
      </c:if>
      
-     
+    
       <sec:authentication var="user" property="name" />
   
     <spring:url value="{athleteId}/edit" var="editUrl">
         <spring:param name="athleteId" value="${athlete.id}"/>
     </spring:url>
     <sec:authorize access="hasAnyAuthority('admin')">
+     <h1></h1>
     <a href="${fn:escapeXml(editUrl)}" class="btn btn-default">Editar Deportista</a>
   	<br>
   </sec:authorize>    

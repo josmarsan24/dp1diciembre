@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.dao.DataAccessException;
-import org.springframework.samples.petclinic.model.Pista;
 import org.springframework.samples.petclinic.model.Resultado;
 import org.springframework.samples.petclinic.service.exceptions.IncrongruentPositionException;
 import org.springframework.stereotype.Service;

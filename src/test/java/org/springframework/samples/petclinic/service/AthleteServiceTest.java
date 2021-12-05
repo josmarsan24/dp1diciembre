@@ -1,37 +1,26 @@
 package org.springframework.samples.petclinic.service;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 import java.util.Set;
-
-import javax.validation.ConstraintViolationException;
-import javax.validation.Validation;
-
 import java.util.HashSet;
 import java.util.NoSuchElementException;
-import java.util.Set;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.samples.petclinic.model.Athlete;
 import org.springframework.samples.petclinic.model.Authorities;
 import org.springframework.samples.petclinic.model.Deporte;
-import org.springframework.samples.petclinic.model.Entrenador;
 import org.springframework.samples.petclinic.model.Genero;
 import org.springframework.samples.petclinic.model.User;
-import org.springframework.samples.petclinic.repository.UserRepository;
-import org.springframework.samples.petclinic.service.exceptions.IncongruentSancionDateExcepcion;
 import org.springframework.samples.petclinic.service.exceptions.NotValidPasswordException;
 import org.springframework.samples.petclinic.service.exceptions.NotValidUsernameException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javassist.expr.NewArray;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 public class AthleteServiceTest {
@@ -131,7 +120,7 @@ public class AthleteServiceTest {
 	void testObtenerAtletaNoExistentePorID() {
 		Integer ID = 50;
 		try {
-			Athlete e = athleteService.findAthleteById(ID);
+			athleteService.findAthleteById(ID);
 		} catch (NoSuchElementException e) {
 			e.printStackTrace();
 		}

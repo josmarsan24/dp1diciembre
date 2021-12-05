@@ -1,6 +1,8 @@
 package org.springframework.samples.petclinic.service;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Patrocinador;
@@ -26,6 +28,22 @@ public class PatrocinadorService {
 	@Transactional
 	public Optional<Patrocinador> findPatrocinadorById(int id){
 		return patrocinadorRepo.findById(id);
+	}
+	
+	@Transactional
+	public void save(Patrocinador patrocinador) {
+		 patrocinadorRepo.save(patrocinador);
+	}
+	
+	@Transactional
+	public Set<Patrocinador> findPatrocinadorTypes() {
+		Set<Patrocinador> res = new HashSet<Patrocinador>();
+		Iterable<Patrocinador> patrocinadores = findAll();
+		for (Patrocinador p : patrocinadores) {
+			res.add(p);
+		}
+		System.out.println(res);
+		return res;
 	}
 	
 }

@@ -16,8 +16,6 @@ import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -42,8 +40,6 @@ public class TorneoControllerTests {
 	private static final int TEST_Torneo_ID2 = 2;
 	private static final int TEST_Athlete_ID = 1;
 	
-	@Autowired
-	private TorneoController torneoController; 
 	
 	@MockBean
 	private TorneoService torneoService;

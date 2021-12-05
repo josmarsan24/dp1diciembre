@@ -2,16 +2,18 @@ package org.springframework.samples.petclinic.web;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Set;
+
 import javax.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Athlete;
 import org.springframework.samples.petclinic.model.Deporte;
 import org.springframework.samples.petclinic.model.Entrenador;
+import org.springframework.samples.petclinic.model.Patrocinador;
 import org.springframework.samples.petclinic.service.AthleteService;
-import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.EntrenadorService;
-import org.springframework.samples.petclinic.service.UserService;
+import org.springframework.samples.petclinic.service.PatrocinadorService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -27,11 +29,13 @@ public class AthleteController {
 	
 	private AthleteService athleteService;
 	private EntrenadorService entrenadorService;
+	private PatrocinadorService patrocinadoreService;
 	
 	@Autowired
-	public AthleteController(AthleteService athleteService, EntrenadorService entrenadorService,UserService userService, AuthoritiesService authoritiesService) {
-		this.athleteService = athleteService;
+	public AthleteController(AthleteService athleteService,PatrocinadorService patrocinadoreService, EntrenadorService entrenadorService) {
+		this.athleteService = athleteService; 
         this.entrenadorService = entrenadorService;
+        this.patrocinadoreService = patrocinadoreService;
 	}
 	
 	private static final String VIEWS_ATHLETE_CREATE_OR_UPDATE_FORM = "athletes/createOrUpdateAthleteForm";
@@ -47,6 +51,7 @@ public class AthleteController {
 	public Collection<Deporte> getDeporte(){
 		return this.athleteService.findDeporteTypes();
 	}
+	
 	
 	@GetMapping( value = "/entrenadores/{entrenadorId}/athletes/new")
 	public String initCreationForm(@PathVariable("entrenadorId") int entrenadorId,Entrenador entrenador, ModelMap model) {
@@ -162,6 +167,39 @@ public class AthleteController {
 		modelMap.addAttribute("message", "Deportista borrado con exito");
 		log.info("Se ha eliminado el deportista");
 		String view = athletesList(modelMap);
+		return view;
+	}
+	
+	@GetMapping(path="/athletes/show/{athleteId}/patrocinadores")
+	public String buscarPatrocinadores(@PathVariable("athleteId") int athleteId, ModelMap modelMap) {
+		Athlete athlete = athleteService.findAthleteById(athleteId);
+		Set<Patrocinador> patrocinadores = patrocinadoreService.findPatrocinadorTypes();
+		modelMap.addAttribute("athlete", athlete);
+		modelMap.addAttribute("patrocinadores", patrocinadores);
+		String vista = "athletes/addPatrocinador";
+		log.info("Mostrando todos los patrocinadores disponibles");
+		return vista;
+	}
+	
+	@GetMapping(path="/athletes/show/{athleteId}/addPatrocinador/{patrocinadorId}")
+	public String addPatrocinadorAthlete(@PathVariable("athleteId") int athleteId, @PathVariable("patrocinadorId") int patrocinadorId, ModelMap modelMap) {
+		Athlete athlete = athleteService.findAthleteById(athleteId);
+		Patrocinador p = patrocinadoreService.findPatrocinadorById(patrocinadorId).get();
+		athlete.setPatrocinador(p);
+		modelMap.addAttribute("athlete", athlete);
+		this.athleteService.save(athlete);
+		log.info("Se ha añadido un patrocinador");
+		return "redirect:/athletes/show/{athleteId}";
+	}
+	
+	@GetMapping(path="/athletes/show/{athleteId}/deletePatrocinador")
+	public String borrarPatrocinadorAthlete(@PathVariable("athleteId") int athleteId, ModelMap modelMap) {
+		Athlete athlete = athleteService.findAthleteById(athleteId);
+		athlete.setPatrocinador(null);
+		athleteService.save(athlete);
+		modelMap.addAttribute("message", "Patrocinador borrado con exito");
+		log.info("Se ha eliminado el patrocinador del deportista");
+		String view = "redirect:/athletes/show/{athleteId}";
 		return view;
 	}
 }

@@ -15,7 +15,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.samples.petclinic.model.Deporte;
-import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.service.AthleteService;
 
 @ExtendWith(MockitoExtension.class)

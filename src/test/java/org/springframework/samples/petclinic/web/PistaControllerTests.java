@@ -8,20 +8,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.internal.util.collections.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.samples.petclinic.configuration.SecurityConfiguration;
-import org.springframework.samples.petclinic.model.Deporte;
-import org.springframework.samples.petclinic.model.Owner;
-import org.springframework.samples.petclinic.model.Pet;
-import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Pista;
 import org.springframework.samples.petclinic.service.PistaService;
 import org.springframework.samples.petclinic.service.TorneoService;
@@ -35,7 +29,6 @@ excludeAutoConfiguration = SecurityConfiguration.class)
 public class PistaControllerTests {
 
 	private static final int TEST_PISTA_ID = 1;
-	private static final int TEST_DEPORTE_ID = 1;
 
 	@MockBean
 	private PistaService pistaService;
@@ -44,13 +37,9 @@ public class PistaControllerTests {
 	private TorneoService torneoService;
 
 	@Autowired
-	private PistaController pistaController;
-
-	@Autowired
 	private MockMvc mockMvc;
 
 	private Pista p1;
-	private Deporte d1;
 
 	@BeforeEach
 	void setup() {
