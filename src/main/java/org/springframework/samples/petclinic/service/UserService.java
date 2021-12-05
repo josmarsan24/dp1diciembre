@@ -17,13 +17,9 @@ package org.springframework.samples.petclinic.service;
 
 
 import java.util.Optional;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.samples.petclinic.model.Authorities;
 import org.springframework.samples.petclinic.model.User;
-import org.springframework.samples.petclinic.repository.AuthoritiesRepository;
 import org.springframework.samples.petclinic.repository.UserRepository;
 import org.springframework.samples.petclinic.service.exceptions.NotValidPasswordException;
 import org.springframework.samples.petclinic.service.exceptions.NotValidUsernameException;
@@ -40,12 +36,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
 
 	private UserRepository userRepository;
-	private AuthoritiesRepository authoritiesRepository;
 
 	@Autowired
-	public UserService(UserRepository userRepository,AuthoritiesRepository authoritiesRepository) {
+	public UserService(UserRepository userRepository) {
 		this.userRepository = userRepository;
-		this.authoritiesRepository = authoritiesRepository;
 	}
 
 	@Transactional
@@ -76,11 +70,6 @@ public class UserService {
 	
 	@Transactional 
 	public void delete(User user) {
-		if(user.getAuthorities()!=null) {
-		Set<Authorities> authorities= user.getAuthorities();
-		user.setAuthorities(null);
-		authoritiesRepository.deleteAll(authorities);
-		}
 		userRepository.delete(user);
 	}
 }

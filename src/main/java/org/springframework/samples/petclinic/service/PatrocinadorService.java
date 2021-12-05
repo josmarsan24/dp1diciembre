@@ -31,11 +31,6 @@ public class PatrocinadorService {
 	}
 	
 	@Transactional
-	public void save(Patrocinador patrocinador) {
-		 patrocinadorRepo.save(patrocinador);
-	}
-	
-	@Transactional
 	public Set<Patrocinador> findPatrocinadorTypes() {
 		Set<Patrocinador> res = new HashSet<Patrocinador>();
 		Iterable<Patrocinador> patrocinadores = findAll();

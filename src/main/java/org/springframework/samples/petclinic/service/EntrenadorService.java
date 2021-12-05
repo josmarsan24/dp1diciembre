@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Athlete;
+import org.springframework.samples.petclinic.model.Authorities;
 import org.springframework.samples.petclinic.model.Entrenador;
 import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.repository.EntrenadorRepository;
@@ -47,6 +48,11 @@ public class EntrenadorService {
 		if(entrenador.getUser()!=null) {
 		User user = entrenador.getUser();
 		entrenador.setUser(null);
+		if(user.getAuthorities()!=null) {
+			Set<Authorities> authorities= user.getAuthorities();
+			user.setAuthorities(null);
+			authoritiesService.deleteAll(authorities);
+			}
 		userService.delete(user);
 		}
 		entrenador.setAthletes(new HashSet<Athlete>());

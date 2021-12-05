@@ -6,6 +6,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Athlete;
+import org.springframework.samples.petclinic.model.Authorities;
 import org.springframework.samples.petclinic.model.Deporte;
 import org.springframework.samples.petclinic.model.Torneo;
 import org.springframework.samples.petclinic.model.User;
@@ -47,8 +48,14 @@ public class AthleteService {
 		if(athlete.getUser()!=null) {
 			User user = athlete.getUser();
 			athlete.setUser(null);
+			if(user.getAuthorities()!=null) {
+				Set<Authorities> authorities= user.getAuthorities();
+				user.setAuthorities(null);
+				authoritiesService.deleteAll(authorities);
+				}
 			userService.delete(user);
 			}
+			
 		if(athlete.getTorneos()!=null) {
 			Set<Torneo> torneos = athlete.getTorneos();
 			for (Torneo t : torneos) {
