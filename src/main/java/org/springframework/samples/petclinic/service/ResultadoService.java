@@ -5,7 +5,6 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Resultado;
 import org.springframework.samples.petclinic.repository.ResultadoRepository;
 import org.springframework.samples.petclinic.service.exceptions.IncrongruentPositionException;
-import org.springframework.samples.petclinic.web.AthleteController;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

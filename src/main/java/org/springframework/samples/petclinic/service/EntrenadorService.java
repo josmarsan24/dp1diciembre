@@ -1,20 +1,12 @@
 package org.springframework.samples.petclinic.service;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Athlete;
-import org.springframework.samples.petclinic.model.Deporte;
 import org.springframework.samples.petclinic.model.Entrenador;
 import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.repository.EntrenadorRepository;
-import org.springframework.samples.petclinic.service.exceptions.NotValidPasswordException;
-import org.springframework.samples.petclinic.service.exceptions.NotValidUsernameException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -81,11 +73,8 @@ public class EntrenadorService {
 	
 	@Transactional
 	public void saveUser(Entrenador e) {
-		//creando entrenador
 		entrenadorRepository.save(e);		
-		//creating user
 		userService.saveUser(e.getUser());
-		//creating authorities
 		authoritiesService.saveAuthorities(e.getUser().getUsername(), "entrenador");
 		
 	}

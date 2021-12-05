@@ -22,16 +22,11 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Athlete;
 import org.springframework.samples.petclinic.model.Deporte;
 import org.springframework.samples.petclinic.model.Entrenador;
-import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.service.AthleteService;
-import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.EntrenadorService;
-import org.springframework.samples.petclinic.service.OwnerService;
-import org.springframework.samples.petclinic.service.VetService;
 import org.springframework.samples.petclinic.service.exceptions.NotValidPasswordException;
 import org.springframework.samples.petclinic.service.exceptions.NotValidUsernameException;
 import org.springframework.samples.petclinic.service.UserService;

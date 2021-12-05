@@ -68,8 +68,8 @@
 				</c:forEach>
 			</sec:authorize>
 		</table>
+		<h2>Resultados</h2>
 		<table class="table table-striped">
-			<h2>Resultados</h2>
 			<c:forEach var="resultado" items="${torneo.resultados}">
 				<tr>
 					<td><b><c:out

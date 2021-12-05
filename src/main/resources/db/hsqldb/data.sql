@@ -132,9 +132,9 @@ INSERT INTO torneos(id,name,fecha_inicio,fecha_fin,pista_id,deporte_id) VALUES (
 INSERT INTO torneos(id,name,fecha_inicio,fecha_fin,pista_id,deporte_id) VALUES (4,'Torneo Dos Hermanas Javalina','2021-01-05','2021-01-10',3,3);
 INSERT INTO torneos(id,name,fecha_inicio,fecha_fin,pista_id,deporte_id) VALUES (5,'Torneo Dos Hermanas 100 metros','2021-11-26','2021-11-30',5,1);
 
-INSERT INTO patrocinadores(id,name,tipo,twitter,instagram) VALUES (1,'Powerade','Bebidas energeticas',null,null);
-INSERT INTO patrocinadores(id,name,tipo,twitter,instagram) VALUES (2,'Adidas','Ropa deportiva',null,null);
-INSERT INTO patrocinadores(id,name,tipo,twitter,instagram) VALUES (3,'Myprotein','Ropa y nutrición deportiva',null,null);
+INSERT INTO patrocinadores(id,name,tipo,twitter,instagram) VALUES (1,'Powerade','Bebidas energeticas','PoweradeMx','powerade');
+INSERT INTO patrocinadores(id,name,tipo,twitter,instagram) VALUES (2,'Adidas','Ropa deportiva','adidas_ES','adidas_es');
+INSERT INTO patrocinadores(id,name,tipo,twitter,instagram) VALUES (3,'Myprotein','Ropa y nutrición deportiva','Myprotein','myproteines');
 
 INSERT INTO athletes(id, nombre, apellidos, dni, email, height, weight, genero,entrenador_id, deporte_id, patrocinador_id) VALUES (1,'Lucas','Martínez', '77788899J','lucasmartinez@gmail.com','1.80','86',0,1,1,1);
 INSERT INTO athletes(id, nombre, apellidos, dni, email, height, weight, genero,entrenador_id, deporte_id, patrocinador_id) VALUES (2,'Carlos','Fernández','77678849S','carlosfernandez@gmail.com','1.76','70',0,1,1,2);

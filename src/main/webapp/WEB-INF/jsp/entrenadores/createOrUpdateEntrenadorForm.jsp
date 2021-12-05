@@ -28,7 +28,7 @@
             <petclinic:inputField label="Apellidos" name="apellidos"/>
             <petclinic:inputField label="DNI" name="dni"/>
             <petclinic:inputField label="Email (opcional)" name="email"/>
-           <<h2><c:if test="${edit != true}">
+            <h2><c:if test="${edit != true}">
 				<div class="control-group">
                     <petclinic:selectField name="deporte" label="Deporte" names="${deportes}" size="1"/>
                 </div>       

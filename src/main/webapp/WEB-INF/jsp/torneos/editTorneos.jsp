@@ -33,7 +33,7 @@
 				<div class="control-group">
                     <petclinic:selectField name="deporte" label="Deporte" names="${deportes}" size="1"/>
                 </div>  
-                </c:if>     
+                </c:if>     </h2>
 
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">

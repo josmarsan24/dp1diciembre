@@ -1,14 +1,6 @@
 package org.springframework.samples.petclinic.service;
 
-import java.util.Collection;
-import java.util.Optional;
-import java.util.Set;
-
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.samples.petclinic.model.Deporte;
 import org.springframework.samples.petclinic.model.Pista;
 import org.springframework.samples.petclinic.repository.PistaRepository;
 import org.springframework.stereotype.Service;
@@ -43,7 +35,7 @@ public class PistaService {
 		
 		return pistaRepo.findById(pistaId).get();
 	}
-	
+	@Transactional
 	public void deletePistaById(int pistaId) {
 		
 		pistaRepo.deleteById(pistaId);

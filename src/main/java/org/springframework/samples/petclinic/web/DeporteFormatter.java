@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.Formatter;
 import org.springframework.samples.petclinic.model.Deporte;
 import org.springframework.samples.petclinic.service.AthleteService;
-import org.springframework.samples.petclinic.service.PetService;
 import org.springframework.stereotype.Component;
 
 @Component

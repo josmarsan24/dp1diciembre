@@ -7,9 +7,8 @@
 
 <petclinic:layout pageName="entrenadores">
     <h2>Entrenador</h2>
+    <h3><c:out value="${entrenador.nombre} ${entrenador.apellidos}"/></h3>
     <table class="table table-striped">
-      <h3><c:out value="${entrenador.nombre} ${entrenador.apellidos}"/></h3>
-             
         <tr>
             <th>DNI</th>
             <td><b><c:out value="${entrenador.dni}"/></b></td>

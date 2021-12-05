@@ -2,10 +2,8 @@ package org.springframework.samples.petclinic.service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Athlete;
@@ -14,11 +12,8 @@ import org.springframework.samples.petclinic.model.Torneo;
 import org.springframework.samples.petclinic.repository.AthleteRepository;
 import org.springframework.samples.petclinic.repository.SancionRepository;
 import org.springframework.samples.petclinic.service.exceptions.IncongruentSancionDateExcepcion;
-import org.springframework.samples.petclinic.web.TorneoController;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-//import jdk.internal.jline.internal.Log;
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -86,8 +81,6 @@ public class SancionService {
 			if(a.getTorneos()!=null) {
 				Set<Torneo> torneos = a.getTorneos();
 				for(Torneo t:torneos) {
-				//eliminar a los deportistas de los torneos que aun no han empezado 
-				//	y que terminan antes de que acabe la sancion
 					if(t.getFechaInicio().isAfter(LocalDate.now())&&t.getFechaFin().isBefore(sancion.getFechaFin())) {
 						Set<Athlete> participantes = t.getParticipantes();
 						participantes.remove(a);

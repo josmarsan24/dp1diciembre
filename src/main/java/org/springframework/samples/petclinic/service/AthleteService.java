@@ -3,26 +3,15 @@ package org.springframework.samples.petclinic.service;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.samples.petclinic.PetclinicApplication;
 import org.springframework.samples.petclinic.model.Athlete;
 import org.springframework.samples.petclinic.model.Deporte;
-import org.springframework.samples.petclinic.model.Entrenador;
-import org.springframework.samples.petclinic.model.PetType;
-import org.springframework.samples.petclinic.model.Sancion;
 import org.springframework.samples.petclinic.model.Torneo;
 import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.repository.AthleteRepository;
-import org.springframework.samples.petclinic.repository.SancionRepository;
-import org.springframework.samples.petclinic.service.exceptions.NotValidPasswordException;
-import org.springframework.samples.petclinic.service.exceptions.NotValidUsernameException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -31,15 +20,13 @@ public class AthleteService {
 
 	
 	private AthleteRepository athleteRepository;
-	private SancionRepository sancionRepo;
 	private UserService userService;
 	private AuthoritiesService authoritiesService;
 	
 	@Autowired
-	public AthleteService(AthleteRepository athleteRepository,
-			SancionRepository sancionRepository,UserService userService,AuthoritiesService authoritiesService) {
+	public AthleteService(AthleteRepository athleteRepository,UserService userService
+			,AuthoritiesService authoritiesService) {
 		this.athleteRepository = athleteRepository;
-		this.sancionRepo = sancionRepository;
 		this.userService = userService;
 		this.authoritiesService= authoritiesService;
 	}
@@ -127,13 +114,9 @@ public class AthleteService {
 	
 	@Transactional
 	public void saveUser(Athlete a){
-		//creando deportista
 		athleteRepository.save(a);		
-		//creating user
 		userService.saveUser(a.getUser());
-		//creating authorities
 		authoritiesService.saveAuthorities(a.getUser().getUsername(), "deportista");
-		
 	}
 	
 	@Transactional(readOnly = true)

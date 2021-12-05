@@ -25,6 +25,7 @@ public class DeporteService {
 		return deporteRepo.findAll();
 	}
 	
+	@Transactional
 	public Optional<Deporte> findDeporteById(int id){
 		return deporteRepo.findById(id);
 	}

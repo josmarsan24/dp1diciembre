@@ -3,25 +3,16 @@ package org.springframework.samples.petclinic.service;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
-
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Athlete;
 import org.springframework.samples.petclinic.model.Deporte;
-import org.springframework.samples.petclinic.model.Entrenador;
 import org.springframework.samples.petclinic.model.Pista;
 import org.springframework.samples.petclinic.model.Torneo;
-import org.springframework.samples.petclinic.repository.PistaRepository;
-import org.springframework.samples.petclinic.repository.SancionRepository;
 import org.springframework.samples.petclinic.repository.TorneoRepostitory;
-import org.springframework.samples.petclinic.service.exceptions.IncongruentSancionDateExcepcion;
 import org.springframework.samples.petclinic.service.exceptions.IncongruentTorneoFinDateExcepcion;
 import org.springframework.samples.petclinic.service.exceptions.IncongruentTorneoIniDateExcepcion;
-import org.springframework.samples.petclinic.web.EntrenadorController;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,11 +41,11 @@ public class TorneoService {
 	public Iterable<Torneo> findAll() {
 		return torneoRepo.findAll();
 	}
-
+	@Transactional
 	public void delete(Torneo torneo) {
 		torneoRepo.delete(torneo);
 	}
-
+	@Transactional
 	public void save(Torneo torneo) throws IncongruentTorneoIniDateExcepcion, IncongruentTorneoFinDateExcepcion {
 		if(torneo.getFechaInicio()==null||torneo.getFechaInicio().isBefore(LocalDate.now())) {
 			throw new IncongruentTorneoIniDateExcepcion();
