@@ -45,12 +45,12 @@ public class AuthoritiesService {
 		this.userService = userService;
 	}
 
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public void saveAuthorities(Authorities authorities) throws DataAccessException {
 		authoritiesRepository.save(authorities);
 	}
 	
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public void saveAuthorities(String username, String role) throws DataAccessException {
 		Authorities authority = new Authorities();
 		Optional<User> user = userService.findUser(username);
@@ -59,10 +59,10 @@ public class AuthoritiesService {
 			authority.setAuthority(role);
 			authoritiesRepository.save(authority);
 		}else
-			throw new DataAccessException("User '"+username+"' not found!") {};
+			throw new DataAccessException("User '"+username+"' not found!") {private static final long serialVersionUID = -4114934835272025567L;};
 	}
 	
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public void deleteAll(Set<Authorities> authorities) {
 		authoritiesRepository.deleteAll(authorities);
 		

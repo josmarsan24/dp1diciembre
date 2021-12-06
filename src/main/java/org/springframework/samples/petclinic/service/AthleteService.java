@@ -43,7 +43,7 @@ public class AthleteService {
 		return athleteRepository.findAll();
 	}
 
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public void delete(Athlete athlete) {
 		if(athlete.getUser()!=null) {
 			User user = athlete.getUser();
@@ -67,13 +67,13 @@ public class AthleteService {
 		athleteRepository.delete(athlete);
 	}
 
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public void save(Athlete athlete) {
 		athleteRepository.save(athlete);
 
 	}
 
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public void deleteAthleteById(int athleteId) {
 		athleteRepository.deleteById(athleteId);
 	}
@@ -90,7 +90,7 @@ public class AthleteService {
 		return athleteRepository.findByEntrenadorId(entrenadorId);
 	}
 
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public void eliminarEntrenadorDeAtleta(int i) {
 		athleteRepository.eliminarEntrenadorDeAtleta(i);
 		log.info("Se ha eliminado el entrenador del deportista indicado");
@@ -114,12 +114,12 @@ public class AthleteService {
 		return res;
 	}
 
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public void añadirEntrenadorDeAtleta(int athleteId, int entrenadorId) {
 		athleteRepository.añadirEntrenadorDeAtleta(athleteId, entrenadorId);
 	}
 	
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public void saveUser(Athlete a){
 		athleteRepository.save(a);		
 		userService.saveUser(a.getUser());

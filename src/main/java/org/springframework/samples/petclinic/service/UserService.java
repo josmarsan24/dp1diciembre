@@ -42,7 +42,7 @@ public class UserService {
 		this.userRepository = userRepository;
 	}
 
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public void saveUser(User user) throws DataAccessException {
 		user.setEnabled(true);
 		userRepository.save(user);
@@ -53,7 +53,7 @@ public class UserService {
 		return userRepository.findById(username);
 	}
 	
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public void validUser(User user) throws NotValidUsernameException, NotValidPasswordException {
 		Iterable<User> users = userRepository.findAll();
 		if(user.getUsername()==""||user.getUsername()==null) {
@@ -68,7 +68,7 @@ public class UserService {
 		}
 	}
 	
-	@Transactional 
+	@Transactional(rollbackFor = Exception.class)
 	public void delete(User user) {
 		userRepository.delete(user);
 	}

@@ -41,11 +41,11 @@ public class TorneoService {
 	public Iterable<Torneo> findAll() {
 		return torneoRepo.findAll();
 	}
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public void delete(Torneo torneo) {
 		torneoRepo.delete(torneo);
 	}
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public void save(Torneo torneo) throws IncongruentTorneoIniDateExcepcion, IncongruentTorneoFinDateExcepcion {
 		if(torneo.getFechaInicio()==null||torneo.getFechaInicio().isBefore(LocalDate.now())) {
 			throw new IncongruentTorneoIniDateExcepcion();
@@ -63,7 +63,7 @@ public class TorneoService {
 		return torneoRepo.findById(torneoId).get();
 	}
 	
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public void deleteTorneoById(int torneoId) {
 
 		torneoRepo.deleteById(torneoId);
@@ -102,7 +102,7 @@ public class TorneoService {
 		
 	}
 	
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public void borrarPistaTorneos(Pista pista) {
 		Iterable<Torneo> torneos = findAll();
 		for (Torneo t : torneos) {
@@ -112,7 +112,7 @@ public class TorneoService {
 				}
 			}
 		}
-		log.info("Se han eliminado los torneos existentes de la pista "+pista.getName());
+		log.info("Se ha eliminado la pista "+pista.getName());
 		
 	}
 	

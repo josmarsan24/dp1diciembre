@@ -27,7 +27,7 @@ public class ResultadoService {
 		return resultadoRepo.findAll();
 	}
 
-	@Transactional(rollbackFor = IncrongruentPositionException.class)
+	@Transactional(rollbackFor = Exception.class)
 	public void save(Resultado r) throws DataAccessException, IncrongruentPositionException{
 		if (r.getPosicion() > r.getTorneo().getParticipantes().size() || r.getTorneo().getResultados().stream().anyMatch(x->x.getPosicion()==r.getPosicion())) {
 			throw new IncrongruentPositionException();

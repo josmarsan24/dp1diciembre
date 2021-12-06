@@ -38,7 +38,7 @@ public class WelcomeController {
 		  
 		  model.put("personas", personas);
 		  model.put("title", "Olimpicks");
-		  model.put("group", "Grupo 2 Septiembre");
+		  model.put("group", "Grupo 1 Diciembre");
 	    return "welcome";
 	  }
 }

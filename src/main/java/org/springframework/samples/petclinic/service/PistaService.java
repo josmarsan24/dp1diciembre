@@ -21,11 +21,11 @@ public class PistaService {
 	public Iterable<Pista> findAll() {
 		return pistaRepo.findAll();
 		}
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public void delete(Pista pista) {
 		pistaRepo.delete(pista);
 	}
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public void save(Pista pista) {
 		pistaRepo.save(pista);
 		
@@ -35,7 +35,7 @@ public class PistaService {
 		
 		return pistaRepo.findById(pistaId).get();
 	}
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public void deletePistaById(int pistaId) {
 		
 		pistaRepo.deleteById(pistaId);

@@ -67,7 +67,7 @@ public class SancionService {
 		return sancionRepo.findById(sancionId).get();
 	}
 	
-	@Transactional (rollbackFor = IncongruentSancionDateExcepcion.class)
+	@Transactional (rollbackFor = Exception.class)
 	public void saveSancion(Sancion sancion) throws DataAccessException, IncongruentSancionDateExcepcion {
 		if(sancion.getFechaFin()==null) {throw new IncongruentSancionDateExcepcion();}
 		else{
@@ -97,7 +97,7 @@ public class SancionService {
 		}
 	}
 	
-	@Transactional
+	@Transactional(rollbackFor = Exception.class)
 	public void deleteSancion(Sancion sancion) throws DataAccessException{
 		Athlete a=sancion.getAthlete();
 		a.getSanciones().remove(sancion);
