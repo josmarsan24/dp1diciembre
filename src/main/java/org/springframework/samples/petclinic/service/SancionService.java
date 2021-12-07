@@ -88,7 +88,7 @@ public class SancionService {
 						torneosAux.add(t);
 						}
 					log.info("Se ha creado la sanción");
-					log.info("Se han eliminado los deportistas de los torneos que aún no han empezado y que terminan antes de que acabe la sanción");
+					log.info("Se ha eliminado el deportista de los torneos que aún no han empezado y que terminan antes de que acabe la sanción");
 					}
 				torneos.removeAll(torneosAux);
 				a.setTorneos(torneos);
