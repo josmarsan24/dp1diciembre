@@ -14,10 +14,11 @@
     <table id="pistasTable" class="table table-striped">
         <thead>
         <tr>
-            <th style="width: 300px;">Nombre</th>
+            <th style="width: 350px;">Nombre</th>
             <th>Ciudad</th>
             <th>Aforo</th>
-            <th> Actions</th>
+            <th>Deporte</th>
+            <th>       </th>
         </tr>
         </thead>
         <tbody>
@@ -31,6 +32,9 @@
                 </td>
                 <td>
                     <c:out value="${pista.aforo}"/>
+                </td>
+                 <td>
+                    <c:out value="${pista.deporte}"/>
                 </td>
                  <td>
                  <sec:authorize access="hasAuthority('admin')">

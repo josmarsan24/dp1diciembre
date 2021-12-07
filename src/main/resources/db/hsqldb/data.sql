@@ -18,11 +18,11 @@ INSERT INTO deportes(id,name) VALUES (1,'100 metros lisos');
 INSERT INTO deportes(id,name) VALUES (2,'200 metros vallas');
 INSERT INTO deportes(id,name) VALUES (3,'Lanzamiento de jabalina');
 
-INSERT INTO pistas(id,name,aforo,ciudad) VALUES (1,'Pista de Huelva de 100 metros',2000,'Huelva');
-INSERT INTO pistas(id,name,aforo,ciudad) VALUES (2,'Pista de Sevilla de 200 metros',3000,'Sevilla');
-INSERT INTO pistas(id,name,aforo,ciudad) VALUES (3,'Pista de Dos Hermanas de jabalina',2500,'Dos Hermanas');
-INSERT INTO pistas(id,name,aforo,ciudad) VALUES (4,'Pista de Sevilla de jabalina',3500,'Sevilla');
-INSERT INTO pistas(id,name,aforo,ciudad) VALUES (5,'Pista de Dos Hermanas de 100 metros',1700,'Dos Hermanas');
+INSERT INTO pistas(id,name,aforo,ciudad,deporte_id) VALUES (1,'Pista de Huelva de 100 metros',2000,'Huelva',1);
+INSERT INTO pistas(id,name,aforo,ciudad,deporte_id) VALUES (2,'Pista de Sevilla de 200 metros',3000,'Sevilla',2);
+INSERT INTO pistas(id,name,aforo,ciudad,deporte_id) VALUES (3,'Pista de Dos Hermanas de jabalina',2500,'Dos Hermanas',3);
+INSERT INTO pistas(id,name,aforo,ciudad,deporte_id) VALUES (4,'Pista de Sevilla de jabalina',3500,'Sevilla',3);
+INSERT INTO pistas(id,name,aforo,ciudad,deporte_id) VALUES (5,'Pista de Dos Hermanas de 100 metros',1700,'Dos Hermanas',1);
 
 
 INSERT INTO entrenadores(id, nombre, apellidos, dni, email, deporte_id) VALUES (1, 'Paco', 'Fernández','77788888J','pacofernandez@gmail.com',1);
@@ -31,11 +31,11 @@ INSERT INTO entrenadores(id, nombre, apellidos, dni, email, deporte_id) VALUES (
 INSERT INTO entrenadores(id, nombre, apellidos, dni, email, deporte_id, username) VALUES (4, 'Pedro', 'García Rojas','52891643F','pedrogarcia94@hotmail.com',2,'e1');
 INSERT INTO entrenadores(id, nombre, apellidos, dni, email, deporte_id, username) VALUES (5, 'Noa', 'Herrero ','84531765F','',3,'e2');
 
-INSERT INTO torneos(id,name,fecha_inicio,fecha_fin,pista_id,deporte_id) VALUES (1,'Torneo Huelva de 100 metros','2021-12-16','2021-12-20',1,1);
+INSERT INTO torneos(id,name,fecha_inicio,fecha_fin,pista_id,deporte_id) VALUES (1,'Torneo Huelva de 100 metros','2021-12-26','2021-12-30',1,1);
 INSERT INTO torneos(id,name,fecha_inicio,fecha_fin,pista_id,deporte_id) VALUES (2,'Torneo Sevilla de 200 metros de Primavera','2020-05-16','2020-05-20',2,2);
-INSERT INTO torneos(id,name,fecha_inicio,fecha_fin,pista_id,deporte_id) VALUES (3,'Torneo Sevilla de 200 metros de Invierno','2021-12-05','2021-12-16',2,2);
+INSERT INTO torneos(id,name,fecha_inicio,fecha_fin,pista_id,deporte_id) VALUES (3,'Torneo Sevilla de 200 metros de Invierno','2021-12-25','2021-12-26',2,2);
 INSERT INTO torneos(id,name,fecha_inicio,fecha_fin,pista_id,deporte_id) VALUES (4,'Torneo Dos Hermanas Javalina','2021-01-05','2021-01-10',3,3);
-INSERT INTO torneos(id,name,fecha_inicio,fecha_fin,pista_id,deporte_id) VALUES (5,'Torneo Dos Hermanas 100 metros','2021-11-26','2021-11-30',5,1);
+INSERT INTO torneos(id,name,fecha_inicio,fecha_fin,pista_id,deporte_id) VALUES (5,'Torneo Dos Hermanas 100 metros','2022-01-26','2021-01-30',5,1);
 
 INSERT INTO patrocinadores(id,name,tipo,twitter,instagram) VALUES (1,'Powerade','Bebidas energeticas','PoweradeMx','powerade');
 INSERT INTO patrocinadores(id,name,tipo,twitter,instagram) VALUES (2,'Adidas','Ropa deportiva','adidas_ES','adidas_es');

@@ -18,7 +18,11 @@
                 <petclinic:inputField label="Aforo" name="aforo" />
                 
             </div>
-
+			<h2><c:if test="${edit != true}">
+				<div class="control-group">
+                    <petclinic:selectField name="deporte" label="Deporte" names="${deportes}" size="1"/>
+                </div>  
+                </c:if>     </h2>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <input type="hidden" name="id" value="${pista.id}" />

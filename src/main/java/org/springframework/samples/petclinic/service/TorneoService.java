@@ -13,6 +13,7 @@ import org.springframework.samples.petclinic.model.Torneo;
 import org.springframework.samples.petclinic.repository.TorneoRepostitory;
 import org.springframework.samples.petclinic.service.exceptions.IncongruentTorneoFinDateExcepcion;
 import org.springframework.samples.petclinic.service.exceptions.IncongruentTorneoIniDateExcepcion;
+import org.springframework.samples.petclinic.service.exceptions.InvalidPistaException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,13 +47,16 @@ public class TorneoService {
 		torneoRepo.delete(torneo);
 	}
 	@Transactional(rollbackFor = Exception.class)
-	public void save(Torneo torneo) throws IncongruentTorneoIniDateExcepcion, IncongruentTorneoFinDateExcepcion {
+	public void save(Torneo torneo) throws IncongruentTorneoIniDateExcepcion, IncongruentTorneoFinDateExcepcion, InvalidPistaException {
 		if(torneo.getFechaInicio()==null||torneo.getFechaInicio().isBefore(LocalDate.now())) {
 			throw new IncongruentTorneoIniDateExcepcion();
 		}else { 
 		if(torneo.getFechaFin()==null||torneo.getFechaFin().isBefore(torneo.getFechaInicio())) {
 			throw new IncongruentTorneoFinDateExcepcion();
 		}else {
+		if(torneo.getDeporte().getId()!=torneo.getPista().getDeporte().getId()) {
+			throw new InvalidPistaException();
+		}
 		torneoRepo.save(torneo);
 			}
 		}

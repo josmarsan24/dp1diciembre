@@ -14,11 +14,11 @@
         <thead>
         <tr>
 
-				<th style="width: 200px;">Nombre</th>
-				<th style="width: 40px;">DNI</th>
-				<th style="width: 250px;">Email</th>
-				<th style="width: 200px;">Deporte</th>
-				<th >Actions</th>
+				<th style="width: 300px;">Nombre</th>
+				<th style="width: 60px;">DNI</th>
+				<th style="width: 300px;">Email</th>
+				<th style="width: 220px;">Deporte</th>
+				<th >       </th>
 			</tr>
         </thead>
         <tbody>

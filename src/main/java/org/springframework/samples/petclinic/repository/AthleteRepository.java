@@ -12,6 +12,7 @@ import org.springframework.samples.petclinic.model.Deporte;
 import org.springframework.transaction.annotation.Transactional;
 
 public interface AthleteRepository extends CrudRepository<Athlete, Integer>{
+	@Transactional
 	@Query("SELECT athlete from Athlete athlete WHERE entrenador_id LIKE :entrenadorId%")
 	Set<Athlete> findByEntrenadorId(@Param("entrenadorId")int entrenadorId);
 		
@@ -19,7 +20,8 @@ public interface AthleteRepository extends CrudRepository<Athlete, Integer>{
 	@Modifying
 	@Query("UPDATE Athlete SET entrenador_id=null where id LIKE :athleteId")
 	void eliminarEntrenadorDeAtleta(@Param("athleteId") int athleteId);
-
+	
+	@Transactional
 	@Query("SELECT athlete from Athlete athlete WHERE entrenador_id IS NULL")
 	Set<Athlete> buscarAtletaSinEntrenador();
 
@@ -28,6 +30,7 @@ public interface AthleteRepository extends CrudRepository<Athlete, Integer>{
 	@Query("UPDATE Athlete SET entrenador_id=:entrenadorId where id LIKE :athleteId")
 	void añadirEntrenadorDeAtleta(@Param("athleteId") int athleteId,@Param("entrenadorId") int entrenadorId);
 	
+	@Transactional
 	@Query("SELECT pdeporte FROM Deporte pdeporte ORDER BY pdeporte.name")
 	List<Deporte> findDeporteTypes() throws DataAccessException;
 	

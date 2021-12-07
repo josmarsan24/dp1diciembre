@@ -16,6 +16,7 @@ import org.springframework.samples.petclinic.model.Pista;
 import org.springframework.samples.petclinic.model.Torneo;
 import org.springframework.samples.petclinic.service.exceptions.IncongruentTorneoFinDateExcepcion;
 import org.springframework.samples.petclinic.service.exceptions.IncongruentTorneoIniDateExcepcion;
+import org.springframework.samples.petclinic.service.exceptions.InvalidPistaException;
 import org.springframework.stereotype.Service;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
@@ -24,6 +25,10 @@ public class TorneoServiceTest {
 	private TorneoService torneoService;
 	@Autowired
 	private AthleteService athleteService;
+	@Autowired
+	private DeporteService deporteService;
+	@Autowired
+	private PistaService pistaService;
 	
 	@Test
 	public void testConteoDatosIniciales() {
@@ -49,7 +54,7 @@ public class TorneoServiceTest {
 	}
 	
 	@Test
-	public void saveTorneo() throws IncongruentTorneoIniDateExcepcion, IncongruentTorneoFinDateExcepcion {
+	public void saveTorneo() throws InvalidPistaException, IncongruentTorneoIniDateExcepcion, IncongruentTorneoFinDateExcepcion {
 		int count = torneoService.torneoCount();
 		
 		Torneo t = new Torneo();
@@ -72,8 +77,25 @@ public class TorneoServiceTest {
 			torneoService.save(t);;
 		});
 		
+		
+		Pista p = new Pista();
+		p.setDeporte(deporteService.findDeporteById(1).get());
+		t.setDeporte(deporteService.findDeporteById(2).get());
 		t.setFechaInicio(LocalDate.of(2022, 12, 23));
 		t.setFechaFin(LocalDate.of(2022, 12, 29));
+		t.setPista(p);
+		Assertions.assertThrows(InvalidPistaException.class, () ->{
+			torneoService.save(t);;
+		});
+		
+		t.setFechaInicio(LocalDate.of(2022, 12, 23));
+		t.setFechaFin(LocalDate.of(2022, 12, 29));
+		p.setDeporte(deporteService.findDeporteById(2).get());
+		p.setAforo(400);
+		p.setCiudad("Sevilla");
+		p.setName("Pista prueba");
+		pistaService.save(p);
+		t.setPista(p);
 		torneoService.save(t);
 		int count2 = torneoService.torneoCount();
 		

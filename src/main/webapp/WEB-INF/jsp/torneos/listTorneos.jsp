@@ -16,7 +16,7 @@
 				<th>Deporte</th>
 				<th>Fecha Incicio</th>
 				<th>Fecha Fin</th>
-				<th >Actions</th>
+				<th >        </th>
 				<th ></th>
 			</tr>
 		</thead>
@@ -35,7 +35,7 @@
 
 					 <td><petclinic:localDate date="${torneo.fechaFin}"
 							pattern="yyyy/MM/dd" /></td>
-					
+					  <sec:authorize access="hasAuthority('admin')">
 					<td><spring:url value="/torneos/delete/{torneoId}"
 							var="torneoUrl">
 							<spring:param name="torneoId" value="${torneo.id}" />
@@ -45,7 +45,7 @@
 							var="torneoUrl">
 							<spring:param name="torneoId" value="${torneo.id}" />
 						</spring:url> <a href="${fn:escapeXml(torneoUrl)}">Editar</a></td>
-
+						</sec:authorize>
 
 
 

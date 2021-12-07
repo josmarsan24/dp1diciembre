@@ -15,6 +15,7 @@ import org.springframework.samples.petclinic.service.AthleteService;
 import org.springframework.samples.petclinic.service.TorneoService;
 import org.springframework.samples.petclinic.service.exceptions.IncongruentTorneoFinDateExcepcion;
 import org.springframework.samples.petclinic.service.exceptions.IncongruentTorneoIniDateExcepcion;
+import org.springframework.samples.petclinic.service.exceptions.InvalidPistaException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -92,6 +93,10 @@ public class TorneoController {
 				result.rejectValue("fechaFin", "torneoDateFin", "La fecha de fin debe ser posterior al la de inicio");
 				log.error("No se ha creado el torneo. La fecha de fin debe ser posterior a la de inicio");
 				return "torneos/editTorneos";
+			} catch (InvalidPistaException e) {
+				result.rejectValue("pista", "torneoPista", "La pista no es adecuada para el deporte de este torneo");
+				log.error("No se ha creado el torneo. La pista no es adecuada para el deporte de este torneo");
+				return "torneos/editTorneos";
 			}
 			modelMap.addAttribute("message", "Torneo guardado con exito");
 			log.info("Se ha creado el torneo "+torneo.getName());
@@ -140,11 +145,21 @@ public class TorneoController {
 				torneoService.save(torneoAc);
 			} catch (IncongruentTorneoIniDateExcepcion e) {
 				result.rejectValue("fechaInicio", "torneoDateIni", "La fecha de inicio debe ser posterior al día actual");
+				boolean edit = true;
+				model.put("edit", edit);
 				log.error("No se ha creado el torneo. La fecha de inicio debe ser posterior a la actual");
 				return "torneos/editTorneos";
 			} catch (IncongruentTorneoFinDateExcepcion e) {
 				result.rejectValue("fechaFin", "torneoDateFin", "La fecha de fin debe ser posterior al la de inicio");
+				boolean edit = true;
+				model.put("edit", edit);
 				log.error("No se ha creado el torneo. La fecha de fin debe ser posterior a la de inicio");
+				return "torneos/editTorneos";
+			}catch (InvalidPistaException e) {
+				result.rejectValue("pista", "torneoPista", "La pista no es adecuada para el deporte de este torneo");
+				boolean edit = true;
+				model.put("edit", edit);
+				log.error("No se ha creado el torneo. La pista no es adecuada para el deporte de este torneo");
 				return "torneos/editTorneos";
 			}
 			log.info("Se ha editado el torneo");
@@ -178,8 +193,8 @@ public class TorneoController {
 		torneo.addParticipante(atleta);
 		try {
 			this.torneoService.save(torneo);
-		} catch (IncongruentTorneoIniDateExcepcion | IncongruentTorneoFinDateExcepcion e) {
-		}
+		} catch (IncongruentTorneoIniDateExcepcion | IncongruentTorneoFinDateExcepcion|InvalidPistaException e) {
+		} 
 		return "redirect:/torneos/show/{torneoId}";
 	}
 	

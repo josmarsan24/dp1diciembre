@@ -19,7 +19,7 @@
 				<th style="width: 40px;">Altura</th>
 				<th style="width: 40px;">Peso</th>
 				<th style="width: 200px;">Deporte</th>	
-				<th >Actions</th>			
+				<th >        </th>			
 
 			</tr>
 
